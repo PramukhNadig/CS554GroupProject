@@ -1,19 +1,33 @@
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 function App() {
+  const navigate = useNavigate();
   return (
     <div className="app">
-      <form method="POST" action="/login">
+      <form
+        onSubmit={async (e) => {
+          e.preventDefault();
+          await axios.post("http://localhost:4000/v1/users/login", {
+            username: (e.target as any).username.value,
+            password: (e.target as any).password.value,
+            //add more if we need
+          });
+          navigate("/");
+        }}
+      >
         <div className="form-group">
-          <label htmlFor="exampleInputEmail1">Email address</label>
+          <label htmlFor="exampleInputusername1">username</label>
           <input
-            type="email"
-            name="email"
+            type="username"
+            name="username"
             className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            placeholder="Enter email"
+            id="exampleInputusername1"
+            aria-describedby="usernameHelp"
+            placeholder="Enter username"
           />
-          <small id="emailHelp" className="form-text text-muted">
-            We'll never share your email with anyone else.
+          <small id="usernamelHelp" className="form-text text-muted">
+            We'll never share your username with anyone else.
           </small>
         </div>
 

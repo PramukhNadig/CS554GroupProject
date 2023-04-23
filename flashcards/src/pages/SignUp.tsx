@@ -1,7 +1,22 @@
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 function App() {
+  const navigate = useNavigate();
   return (
     <div className="app">
-      <form method="POST" action="/signup">
+      <form
+        onSubmit={async (e) => {
+          e.preventDefault();
+          await axios.post("http://localhost:4000/v1/users/signup", {
+            username: (e.target as any).username.value,
+            password: (e.target as any).password.value,
+            email: (e.target as any).email.value,
+            //add more if we need
+          });
+          navigate("/");
+        }}
+      >
         <div className="form-group">
           <label htmlFor="username">Username</label>
           <input
@@ -42,7 +57,7 @@ function App() {
           </small>
         </div>
 
-        <div className="form-group">
+        {/* <div className="form-group">
           <label htmlFor="phonenumber">Phone number</label>
           <input
             type="text"
@@ -51,20 +66,9 @@ function App() {
             id="phonenumber"
             placeholder="Phonenumber"
           />
-        </div>
+        </div> */}
 
-        <div className="form-group">
-          <label htmlFor="city">City </label>
-          <input
-            type="city"
-            name="city"
-            className="form-control"
-            id="city"
-            placeholder="City"
-          />
-        </div>
-
-        <div className="form-group">
+        {/* <div className="form-group">
           <label htmlFor="gender">Gender </label>
           <div className="form-check form-check-inline mb-0 me-4">
             <input
@@ -105,9 +109,9 @@ function App() {
               Other
             </label>
           </div>
-        </div>
+        </div> */}
 
-        <div className="form-group">
+        {/* <div className="form-group">
           <label htmlFor="age">age</label>
           <input
             type="number"
@@ -116,38 +120,9 @@ function App() {
             id="age"
             placeholder="Age"
           />
-        </div>
+        </div> */}
 
-        <div className="form-group">
-          <label htmlFor="usertype">Type </label>
-          <div className="form-check form-check-inline mb-0 me-4">
-            <input
-              className="form-check-input"
-              type="radio"
-              name="usertype"
-              id="user"
-              value="user"
-            />
-            <label className="form-check-label" htmlFor="user">
-              User
-            </label>
-          </div>
-
-          <div className="form-check form-check-inline mb-0 me-4">
-            <input
-              className="form-check-input"
-              type="radio"
-              name="usertype"
-              id="admin"
-              value="admin"
-            />
-            <label className="form-check-label" htmlFor="admin">
-              Admin
-            </label>
-          </div>
-        </div>
-
-        <a href="/">Already have an account? Click here to log-in</a>
+        <a href="/login">Already have an account? Click here to log-in</a>
         <br />
         <br />
         <button type="submit" className="btn btn-primary">
