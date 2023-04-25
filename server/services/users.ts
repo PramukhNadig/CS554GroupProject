@@ -1,6 +1,15 @@
 import bcrypt from "bcrypt";
-
 import mongoCollections from "../config/mongoCollections";
+
+/*
+Properties of users collection
+1. _id: ObjectId
+2. username: string
+3. password: string
+4. email: string
+5. owned_sets: array of ObjectIds
+6. saved_sets: array of ObjectIds
+*/
 
 const users = mongoCollections.users;
 const isAlpha = (str: string) => /^[a-zA-Z]*$/.test(str);
@@ -42,6 +51,8 @@ const createUser = async (
     username: lowerUsername,
     password: await bcrypt.hash(password, salt),
     email,
+    owned_sets: [],
+    saved_sets: []
   });
   return { userInserted: true };
 };

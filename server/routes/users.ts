@@ -1,6 +1,7 @@
 import express from "express";
 import UserServices from "../services/users";
 const router = express.Router();
+
 type User = {
   username: string;
   password: string;
