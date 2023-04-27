@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CardInput from "../components/CardInput";
 import axios from "axios";
+import { Navigate, useNavigate } from "react-router-dom";
 
 type Card = {
   word: string;
@@ -9,6 +10,7 @@ type Card = {
 };
 const initCard = { word: "", meaning: "", imageUrl: "" };
 function App() {
+  const navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [subject, setSubject] = useState("");
@@ -42,8 +44,9 @@ function App() {
         + Add Card
       </button>
       <button
-        onClick={() => {
-          axios.post("/v1/learningSet", { title, description, subject, cards });
+        onClick={async () => {
+          await axios.post("/v1/sets", { title, description, subject, cards });
+          navigate("/");
         }}
       >
         Submit
