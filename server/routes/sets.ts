@@ -2,19 +2,19 @@ import express from "express";
 import setServices from "../services/sets";
 const router = express.Router();
 
-// type Card = {
-//   word: "";
-//   meaning: "";
-//   imageUrl: "";
-// };
-// type LearningSet = {
-//   id: string;
-//   owner: string;
-//   title: string;
-//   description: string;
-//   subject: string;
-//   cards: Card[];
-// };
+type Card = {
+  word: "";
+  meaning: "";
+  imageUrl: "";
+};
+type LearningSet = {
+  id: string;
+  owner: string;
+  title: string;
+  description: string;
+  subject: string;
+  cards: Card[];
+};
 
 // define the home page route
 router.get("/", async (req, res) => {
