@@ -12,10 +12,7 @@ const port = 4000;
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(cors());
-app.use("/v1", router);
-app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
-});
+
 
 app.use(
   session({
@@ -25,6 +22,13 @@ app.use(
     saveUninitialized: true,
   })
 );
+
+
+app.use("/v1", router);
+app.get("/", (req: Request, res: Response) => {
+  res.send("Express + TypeScript Server");
+});
+
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
