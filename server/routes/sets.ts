@@ -21,6 +21,18 @@ router.get("/", async (req, res) => {
   const sets = await setServices.getSets();
   res.json(sets);
 });
+
+router.get("/my", async (req, res) => {
+  const sets = await setServices.getSetsByOwner("test");
+  res.json(sets);
+});
+
+router.get("/:id", async (req, res) => {
+  const id = req.params.id;
+  const sets = await setServices.getSetsById(id);
+  res.json(sets);
+});
+
 // define the about route
 router.post("/", async (req, res) => {
   const { title, description, subject, cards } = req.body;

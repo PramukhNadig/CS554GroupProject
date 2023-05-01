@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useQuery } from "react-query";
-import { json } from "stream/consumers";
 
 function Home() {
   const { data } = useQuery("todos", () => {

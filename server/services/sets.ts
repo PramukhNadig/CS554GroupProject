@@ -1,5 +1,7 @@
 import { ObjectId } from "mongoose";
 import mongoCollections from "../config/mongoCollections";
+import { ObjectId as mongodbObjectId } from "mongodb";
+
 const sets = mongoCollections.sets;
 
 /*
@@ -24,6 +26,22 @@ const getSets = async () => {
   const setCollection = await sets();
   const setList = await setCollection.find({}).toArray();
   console.log("Set", setList);
+  return setList;
+};
+
+const getSetsById = async (id: string) => {
+  const setCollection = await sets();
+  const setList = await setCollection.findOne({
+    _id: new (mongodbObjectId as any)(id),
+  });
+
+  return setList;
+};
+
+const getSetsByOwner = async (owner: string) => {
+  const setCollection = await sets();
+  const setList = await setCollection.find({ owner }).toArray();
+
   return setList;
 };
 
@@ -63,6 +81,8 @@ const deleteSet = async (id: ObjectId) => {
 
 export default {
   getSets,
+  getSetsById,
+  getSetsByOwner,
   getPostById,
   createSet,
   deleteSet,
