@@ -50,7 +50,7 @@ const createSet = async (
   title: String,
   description: String,
   subject: String,
-  cards: any[]
+  cards: any[],
 ) => {
   const setCollection = await sets();
 

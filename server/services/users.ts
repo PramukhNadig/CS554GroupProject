@@ -90,4 +90,37 @@ const checkUser = async (username: string, password: string) => {
   return { authenticated: true, findUserName };
 };
 
-export default { createUser, checkUser };
+const saveSet = async (username: string, setID: string) => {
+  const lowerUsername = username.toLowerCase();
+  if (!lowerUsername || !setID) {
+    throw new Error("Username or setID is empty");
+  }
+  if (typeof lowerUsername !== "string" || lowerUsername.length < 4) {
+    throw new Error(
+      "user name should be a valid string and should be at least 4 characters long."
+    );
+  }
+
+  const userCollections = await users();
+
+  const findUserName = await userCollections.findOne({
+    username: lowerUsername,
+  });
+
+  if (!findUserName) {
+    throw new Error("Either the username or setID is invalid");
+  }
+
+  const updateInfo = await userCollections.updateOne(
+    { username: lowerUsername },
+    { $addToSet: { saved_sets: setID } }
+  );
+
+  if (updateInfo.modifiedCount === 0) {
+    throw new Error("Could not update user successfully");
+  }
+
+  return { updated: true };
+};
+
+export default { createUser, checkUser, saveSet };
