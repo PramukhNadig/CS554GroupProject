@@ -1,5 +1,6 @@
 import express from "express";
 import setServices from "../services/sets";
+import users from "../services/users";
 const router = express.Router();
 
 type Card = {
@@ -37,6 +38,18 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   const { title, description, subject, cards } = req.body;
   await setServices.createSet("test", title, description, subject, cards);
+
+  res.send("success");
+});
+
+router.post("/save", async (req, res) => {
+
+  if (!req.body.userId || !req.body.setId) {
+    res.status(400).send("userId or setId is empty");
+    return;
+  }
+
+  await users.saveSet(req.body.userId, req.body.setId)
 
   res.send("success");
 });
