@@ -49,6 +49,7 @@ jobs:
         npm run dev
         
     - name: npm for client
+      run: |
         cd client
         npm install
         npm start
