@@ -11,6 +11,7 @@ import MySets from "./pages/MySets";
 import Set from "./pages/Set";
 import YourProfile from "./pages/YourProfile";
 import Logout from "./pages/Logout";
+import Search from "./pages/Search";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
         <Route path="/set/:id" element={<Set />} />
         <Route path="/profile" element={<YourProfile />} />
         <Route path="/logout" element={<Logout />} />
+        <Route path="/search" element={<Search />} />
         <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
     </Router>
