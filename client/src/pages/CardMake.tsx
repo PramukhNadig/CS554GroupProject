@@ -45,7 +45,7 @@ function App() {
       </button>
       <button
         onClick={async () => {
-          await axios.post("/v1/sets", { title, description, subject, cards });
+          await axios.post("localhost:4000/v1/sets", { title, description, subject, cards });
           navigate("/");
         }}
       >
