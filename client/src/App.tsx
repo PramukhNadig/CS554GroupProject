@@ -9,6 +9,8 @@ import CardSubject from "./pages/CardSubject";
 import UserProfile from "./pages/UserProfile";
 import MySets from "./pages/MySets";
 import Set from "./pages/Set";
+import YourProfile from "./pages/YourProfile";
+import Logout from "./pages/Logout";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
@@ -24,6 +26,9 @@ function App() {
         <Route path="/userprofile/:username" element={<UserProfile />} />
         <Route path="/mysets" element={<MySets />} />
         <Route path="/set/:id" element={<Set />} />
+        <Route path="/profile" element={<YourProfile />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
     </Router>
   );

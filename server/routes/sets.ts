@@ -54,4 +54,10 @@ router.post("/save", async (req, res) => {
   res.send("success");
 });
 
+router.get("/sets/:name", async (req, res) => {
+  const name = req.params.name;
+  const sets = await setServices.getSetsByOwner(name);
+  res.json(sets);
+});
+
 export default router;

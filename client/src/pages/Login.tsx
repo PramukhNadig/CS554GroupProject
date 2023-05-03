@@ -1,19 +1,57 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Alert } from "@mui/material";
+
+import setCookie from "../helpers/cookies"
+import cookies from "../helpers/cookies";
 
 function App() {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const alert = () => {
+    if (errorMessage) {
+      return <Alert severity="error">{errorMessage}</Alert>;
+    }
+  };
+
+  const successAlert = () => {
+    if (successMessage) {
+      return <Alert severity="success">{successMessage}</Alert>;
+    }
+  };
+
   return (
+    
     <div className="app">
+      {successAlert()}
+      {alert()}
       <form
         onSubmit={async (e) => {
+          let id = "";
           e.preventDefault();
-          await axios.post("http://localhost:4000/v1/users/login", {
-            username: (e.target as any).username.value,
-            password: (e.target as any).password.value,
-            //add more if we need
-          });
-          navigate("/");
+          try {
+            let result = await axios.post("http://localhost:4000/v1/users/login", {
+              username: (e.target as any).username.value,
+              password: (e.target as any).password.value,
+
+              //add more if we need
+            });
+            id = result.data._id;
+
+          } catch (err) {
+            setErrorMessage("Invalid username or password");
+            return;
+          }
+          setErrorMessage("");
+          setSuccessMessage("Login successful");
+          cookies.setCookie("username", (e.target as any).username.value, 1); 
+          cookies.setCookie("id", id, 1);
+
+          setTimeout(() => {
+            navigate("/"); 
+          }, 1000);
         }}
       >
         <div className="form-group">

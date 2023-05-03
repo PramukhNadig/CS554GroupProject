@@ -1,19 +1,53 @@
 import axios from "axios";
 import { useQuery } from "react-query";
+import { Container, Grid } from "@mui/material";
+import cookies from "../helpers/cookies";
+import HomeList from "../components/HomeList";
 
 function Home() {
-  const { data } = useQuery("todos", () => {
-    return axios.get("/v1/sets").then((res) => {
-      return res.data;
-    });
-  });
+
+
+
+
+  const username:string = cookies.getCookie("username") || "test";
+
+  const listOfUsersSets = () => {
+    console.log(cookies.getCookie("username"));
+    if (username === undefined || username === "" || cookies.getCookie("id") === undefined || cookies.getCookie("id") === "") {
+      return <p>Log in to view your sets</p>;
+    }
+  }
+
+
+
+
+
+
+  
+
+
+
+
+  if (username === null ||username === undefined || username === "" || cookies.getCookie("id") === undefined || cookies.getCookie("id") === "" || cookies.getCookie("id") === null) {
+    return (
+        <div>
+          <h1>Welcome!</h1>
+          <h2>Log in to view your sets</h2>
+        </div>
+    );
+  }
+
+  console.log((cookies.getCookie("username")));
+  console.log(typeof (cookies.getCookie("username")));
   return (
-    <p>
-      {data?.map((v: any) => {
-        return <div>{v.title}</div>;
-      })}
-    </p>
-  );
-}
+      <Container>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <HomeList name={username} />
+          </Grid>
+        </Grid>
+      </Container>
+    );
+  };
 
 export default Home;
