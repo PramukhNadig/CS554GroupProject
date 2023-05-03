@@ -46,6 +46,19 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.get("/logout", async (req, res) => {
+  if (req.session && req.session.user) {
+    req.session.destroy((err) => {
+      if (err) {
+        res.status(500).json({ "error": "server error" });
+      } else {
+        res.status(200).json({ "status": "logged out" });
+      }
+    });
+  } else {
+    res.status(401).json({ "status": "not authenticated" });
+  }
+});
 router.get("/auth", async (req, res) => {
   if (req.session && req.session.user) {
     res.status(200).json(req.session.user);

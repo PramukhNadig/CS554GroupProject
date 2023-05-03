@@ -1,7 +1,7 @@
 import Set from "../components/Set";
 import axios from "axios";
 import { useQuery } from "react-query";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 function Home() {
   const { id } = useParams();
