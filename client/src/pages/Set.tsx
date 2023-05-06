@@ -15,6 +15,7 @@ function Home() {
   return (
     <div className="app">
       <Set
+        setId={data?._id}
         subject={data?.subject}
         title={data?.title}
         description={data?.description}

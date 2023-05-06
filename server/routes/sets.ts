@@ -43,13 +43,13 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/save", async (req, res) => {
-
-  if (!req.body.userId || !req.body.setId) {
-    res.status(400).send("userId or setId is empty");
+  if (!req.body.username || !req.body.setId) {
+    res.status(400).send("username or setId is empty");
     return;
   }
-
-  await users.saveSet(req.body.userId, req.body.setId)
+  console.log("userId", req.body.username);
+  console.log("saveSet", req.body.setId);
+  await users.saveSet(req.body.username, req.body.setId);
 
   res.send("success");
 });

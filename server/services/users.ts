@@ -52,7 +52,7 @@ const createUser = async (
     password: await bcrypt.hash(password, salt),
     email,
     owned_sets: [],
-    saved_sets: []
+    saved_sets: [],
   });
   return { userInserted: true };
 };
@@ -117,7 +117,10 @@ const saveSet = async (username: string, setID: string) => {
   );
 
   if (updateInfo.modifiedCount === 0) {
-    throw new Error("Could not update user successfully");
+    await userCollections.updateOne(
+      { username: lowerUsername },
+      { $pull: { saved_sets: setID } }
+    );
   }
 
   return { updated: true };
