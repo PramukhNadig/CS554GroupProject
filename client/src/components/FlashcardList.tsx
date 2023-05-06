@@ -40,4 +40,4 @@ const FlashcardList: React.FC<FlashcardListProps> = ({ flashcards }) => {
   );
 };
 
-export default FlashcardList;
+export default {FlashcardList, Flashcard};

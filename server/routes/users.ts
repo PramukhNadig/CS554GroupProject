@@ -32,7 +32,6 @@ router.post("/signup", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  console.log("req", req.body);
   const { username, password } = req.body;
   if (!username || !password ) {
     return res.status(400).json({"error": "must include username, password, and email"})

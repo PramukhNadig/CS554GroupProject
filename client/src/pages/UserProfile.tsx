@@ -1,10 +1,9 @@
 function App() {
   return (
     <div className="app">
-      <div>User name</div>
-      <div>email</div>
-      <div>My Cards</div>
-      <div>bookmark cards</div>
+      <h1>{ }</h1>
+      <h2>fnjsdl</h2>
+      <p>fnjsdl</p>
     </div>
   );
 }
