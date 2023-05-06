@@ -6,27 +6,7 @@ import HomeList from "../components/HomeList";
 
 function Home() {
 
-
-
-
   const username:string = cookies.getCookie("username") || "test";
-
-  const listOfUsersSets = () => {
-    console.log(cookies.getCookie("username"));
-    if (username === undefined || username === "" || cookies.getCookie("id") === undefined || cookies.getCookie("id") === "") {
-      return <p>Log in to view your sets</p>;
-    }
-  }
-
-
-
-
-
-
-  
-
-
-
 
   if (username === null ||username === undefined || username === "" || cookies.getCookie("id") === undefined || cookies.getCookie("id") === "" || cookies.getCookie("id") === null) {
     return (

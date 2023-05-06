@@ -16,6 +16,10 @@ function deleteCookie(name: string) {
     setCookie(name, "", -1);
 }
 
-const cookies = { getCookie, setCookie, deleteCookie };
+function doesExist(name: string) {
+  return getCookie(name) !== null && getCookie(name) !== "" && getCookie(name) !== undefined;
+}
+
+const cookies = { getCookie, setCookie, deleteCookie, doesExist };
 
 export default cookies;

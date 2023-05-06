@@ -1,16 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-
+interface SearchProps {
+    searchTerm: string;
+}
 function App() { 
     
-    const [searchTerm, setSearchTerm] = useState("");
+    const [searchTerm, setSearchTerm] = useState(useParams().searchTerm || "");
     const [searchResults, setSearchResults] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
 
-    const handleChange = (event:React.ChangeEvent<HTMLInputElement>) => {
+    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchTerm(event.target.value);
+    }
+
+    const handleSubmit = (event:React.ChangeEvent<HTMLInputElement>) => {
+        event.preventDefault();
         setSearchTerm(event.target.value);
     }
 
@@ -49,13 +56,24 @@ function App() {
             </button>
         </div>
     );
+
+    if (searchResults.length === 0) {
+        return (
+            <div className="App">
+                <h1>Search</h1>
+                <input type="text" placeholder="Search" value={searchTerm} onSubmit={handleSubmit} onChange={onChange} />
+                {loading && <p>Loading...</p>}
+                {error && <p>Error!</p>}
+                <p>No Results For {searchTerm}</p>
+            </div>
+        );
+    }
     return (
         <div className="App">
             <h1>Search</h1>
-            <input type="text" placeholder="Search" value={searchTerm} onChange={handleChange} />
+            <input type="text" placeholder="Search" value={searchTerm} onSubmit={handleSubmit} onChange={onChange} />
             {loading && <p>Loading...</p>}
             {error && <p>Error!</p>}
-            {searchResults.length === 0 && <p>No results for </p> + searchTerm}
             {searchResults.length > 0 && searchResults.map(card)}
         </div>
     );

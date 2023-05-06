@@ -4,7 +4,7 @@ import { useQuery } from 'react-query';
 
 function App() {
     const { data } = useQuery(["MySets"], () => {
-        return axios.get("/v1/users/auth").then((res) => {
+        return axios.get("http://localhost:4000/v1/users/auth").then((res) => {
         return res.data;
         });
     });

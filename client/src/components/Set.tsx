@@ -34,6 +34,7 @@ function App({ subject, title, description, cards }: any) {
             onClick={() => {
               if (index > 0) {
                 setIndex(index - 1);
+                setShowBack(false);
               }
             }}
           >
@@ -43,6 +44,7 @@ function App({ subject, title, description, cards }: any) {
             onClick={() => {
               if (index < cards?.length - 1) {
                 setIndex(index + 1);
+                setShowBack(false);
               }
             }}
           >
@@ -50,9 +52,6 @@ function App({ subject, title, description, cards }: any) {
           </button>
         </div>
       </main>
-      <footer>
-        <p>Copyright © {new Date().getFullYear()}</p>
-      </footer>
         </div>
       </CardContent>
     </Card>
