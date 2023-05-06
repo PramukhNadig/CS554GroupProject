@@ -1,136 +1,103 @@
+/** @format */
+
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import {
+  Container,
+  Box,
+  Typography,
+  TextField,
+  FormControlLabel,
+  Checkbox,
+  Button,
+  Grid,
+  Link,
+} from "@mui/material";
 
-function App() {
+function SignUp() {
   const navigate = useNavigate();
+
   return (
-    <div className="app">
-      <form
-        onSubmit={async (e) => {
-          e.preventDefault();
-          await axios.post("http://localhost:4000/v1/users/signup", {
-            username: (e.target as any).username.value,
-            password: (e.target as any).password.value,
-            email: (e.target as any).email.value,
-            //add more if we need
-          });
-          navigate("/");
-        }}
-      >
-        <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            name="username"
-            className="form-control"
-            id="username"
-            placeholder="Username"
+    <Container component='main' maxWidth='sm'>
+      <Box
+        sx={{
+          boxShadow: 3,
+          borderRadius: 2,
+          px: 4,
+          py: 6,
+          marginTop: 8,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}>
+        <Typography component='h1' variant='h5'>
+          Sign up
+        </Typography>
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
+            await axios.post("http://localhost:4000/v1/users/signup", {
+              username: (e.target as any).username.value,
+              password: (e.target as any).password.value,
+              email: (e.target as any).email.value,
+            });
+            navigate("/");
+          }}>
+          <TextField
+            margin='normal'
             required
+            fullWidth
+            id='username'
+            label='Username'
+            name='username'
+            autoFocus
           />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="exampleInputPassword1">Password</label>
-          <input
-            type="password"
-            name="password"
-            className="form-control"
-            id="exampleInputPassword1"
-            placeholder="Password"
+          <TextField
+            margin='normal'
             required
+            fullWidth
+            id='email'
+            label='Email Address'
+            name='email'
+            autoComplete='email'
           />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="exampleInputEmail1">Email address</label>
-          <input
-            type="email"
-            name="email"
-            className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            placeholder="Enter email"
+          <TextField
+            margin='normal'
             required
+            fullWidth
+            name='password'
+            label='Password'
+            type='password'
+            id='password'
+            autoComplete='current-password'
           />
-          <small id="emailHelp" className="form-text text-muted">
-            We'll never share your email with anyone else.
-          </small>
-        </div>
-
-        {/* <div className="form-group">
-          <label htmlFor="phonenumber">Phone number</label>
-          <input
-            type="text"
-            name="phonenumber"
-            className="form-control"
-            id="phonenumber"
-            placeholder="Phonenumber"
+          <FormControlLabel
+            control={<Checkbox value='remember' color='primary' />}
+            label='Remember me'
           />
-        </div> */}
-
-        {/* <div className="form-group">
-          <label htmlFor="gender">Gender </label>
-          <div className="form-check form-check-inline mb-0 me-4">
-            <input
-              className="form-check-input"
-              type="radio"
-              name="gender"
-              id="femaleGender"
-              value="female"
-              required
-            />
-            <label className="form-check-label" htmlFor="femaleGender">
-              Female
-            </label>
-          </div>
-
-          <div className="form-check form-check-inline mb-0 me-4">
-            <input
-              className="form-check-input"
-              type="radio"
-              name="gender"
-              id="maleGender"
-              value="male"
-            />
-            <label className="form-check-label" htmlFor="maleGender">
-              Male
-            </label>
-          </div>
-
-          <div className="form-check form-check-inline mb-0">
-            <input
-              className="form-check-input"
-              type="radio"
-              name="gender"
-              id="otherGender"
-              value="other"
-            />
-            <label className="form-check-label" htmlFor="otherGender">
-              Other
-            </label>
-          </div>
-        </div> */}
-
-        {/* <div className="form-group">
-          <label htmlFor="age">age</label>
-          <input
-            type="number"
-            name="age"
-            className="form-control"
-            id="age"
-            placeholder="Age"
-          />
-        </div> */}
-
-        <a href="/login">Already have an account? Click here to log-in</a>
-        <br />
-        <br />
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
-      </form>
-    </div>
+          <Button
+            type='submit'
+            fullWidth
+            variant='contained'
+            sx={{ mt: 3, mb: 2 }}>
+            Sign Up
+          </Button>
+        </form>
+        <Grid container>
+          <Grid item xs>
+            <Link href='#' variant='body2'>
+              Forgot password?
+            </Link>
+          </Grid>
+          <Grid item>
+            <Link href='/login' variant='body2'>
+              Already have an account? Log In
+            </Link>
+          </Grid>
+        </Grid>
+      </Box>
+    </Container>
   );
 }
 
-export default App;
+export default SignUp;
