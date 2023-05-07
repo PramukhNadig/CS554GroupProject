@@ -112,7 +112,7 @@ function NavBar() {
             LibreLearn
           </Typography>
 
-          <Search>
+          <Search sx={{ background: "center" }}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
