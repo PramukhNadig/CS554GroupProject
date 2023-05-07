@@ -5,8 +5,8 @@ import { TextField, Button, Box } from "@mui/material";
 function App() {
   return (
     <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-      <TextField label='Words' variant='outlined' sx={{ flex: 1 }} />
-      <TextField label='Meaning' variant='outlined' sx={{ flex: 1 }} />
+      <TextField label='Term' variant='outlined' sx={{ flex: 1 }} />
+      <TextField label='Defination' variant='outlined' sx={{ flex: 1 }} />
       <input
         type='file'
         style={{
