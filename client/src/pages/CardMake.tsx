@@ -37,7 +37,7 @@ function App() {
         flexDirection: "column",
         gap: 2,
         marginTop: 3,
-        marginLeft: 10,
+        marginLeft: 1,
       }}>
       <Box sx={{ alignSelf: "center" }}>
         <TextField
