@@ -1,10 +1,19 @@
+/** @format */
+
+import React from "react";
+import { Box, Typography } from "@mui/material";
+
 function App() {
   return (
-    <div className="app">
-      <h1>{ }</h1>
-      <h2>fnjsdl</h2>
-      <p>fnjsdl</p>
-    </div>
+    <Box sx={{ textAlign: "center", mt: 4 }}>
+      <Typography variant='h4' sx={{ mb: 2 }}>
+        Hello World!
+      </Typography>
+      <Typography variant='h6' sx={{ mb: 2 }}>
+        fnjsdl
+      </Typography>
+      <Typography variant='body1'>fnjsdl</Typography>
+    </Box>
   );
 }
 
