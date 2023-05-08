@@ -1,6 +1,10 @@
+/** @format */
+
 import React from "react";
-import axios from "axios";
+import { Box, Typography } from "@mui/material";
+
 import { useQuery } from "react-query";
+import axios from "axios";
 
 function App() {
   const { data } = useQuery(["MySets"], () => {
@@ -11,21 +15,34 @@ function App() {
 
   if (data === undefined) {
     return (
-      <div className="app">
-        <h1>My Profile</h1>
-        <h2>Log in to view your profile</h2>
-      </div>
+      <Box sx={{ textAlign: "center", mt: 4 }}>
+        <Typography variant='h4'>My Profile</Typography>
+        <Typography variant='h6' sx={{ mt: 2 }}>
+          Log in to view your profile
+        </Typography>
+      </Box>
     );
   }
 
   return (
-    <div className="app">
-      <h1>My Profile</h1>
-      <h2>{data.username}</h2>
-      <h2>{data.email}</h2>
-      <h2>{data.owned_sets}</h2>
-      <h2>{data.saved_sets}</h2>
-    </div>
+    <Box sx={{ textAlign: "center", mt: 4 }}>
+      <Typography variant='h4'>My Profile</Typography>
+      <Typography variant='h6' sx={{ mt: 2 }}>
+        Username: {data.username}
+      </Typography>
+      <Typography variant='h6' sx={{ mt: 2 }}>
+        Age: {data.age}
+      </Typography>
+      <Typography variant='h6' sx={{ mt: 2 }}>
+        Email: {data.email}
+      </Typography>
+      <Typography variant='h6' sx={{ mt: 2 }}>
+        User Made Set: {data.owned_sets}
+      </Typography>
+      <Typography variant='h6' sx={{ mt: 2 }}>
+        Save Set: {data.saved_sets}
+      </Typography>
+    </Box>
   );
 }
 
