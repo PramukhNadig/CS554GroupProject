@@ -3,7 +3,7 @@ import mongoCollections from "../config/mongoCollections";
 import { ObjectId as mongodbObjectId } from "mongodb";
 
 const sets = mongoCollections.sets;
-
+const users = mongoCollections.users;
 /*
 Properties of sets collection
 1. _id: ObjectId
@@ -25,7 +25,6 @@ const getPostById = async (id: ObjectId) => {
 const getSets = async () => {
   const setCollection = await sets();
   const setList = await setCollection.find({}).toArray();
-  console.log("Set", setList);
   return setList;
 };
 
@@ -81,6 +80,21 @@ const deleteSet = async (id: ObjectId) => {
   return { setId: id, deleted: true };
 };
 
+const getSavedSetsByName = async (name: string) => {
+  const userCollection = await users();
+  const saved = await userCollection.findOne({ username: name });
+  if (saved === null) throw `Could not find user with name of ${name}`;
+
+  console.log(saved.saved_sets);
+  for (let i = 0; i < saved.saved_sets.length; i++) {
+    saved.saved_sets[i] = new mongodbObjectId(saved.saved_sets[i]);
+  }
+  const setCollection = await sets();
+  const setList = await setCollection.find({ _id: { $in: saved.saved_sets } }).toArray();
+  console.log(setList)
+  return setList;
+};
+
 export default {
   getSets,
   getSetsById,
@@ -88,4 +102,5 @@ export default {
   getPostById,
   createSet,
   deleteSet,
+  getSavedSetsByName,
 };

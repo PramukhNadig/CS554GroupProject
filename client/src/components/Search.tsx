@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from "react-router-dom";
 
-interface SearchProps {
-    searchTerm: string;
-}
+
 function App() { 
     
     const [searchTerm, setSearchTerm] = useState(useParams().searchTerm || "");
@@ -30,8 +28,8 @@ function App() {
                 let url = 'http://localhost:4000/v1/sets/';
                 const res = await axios.get(url);
                 for (let i = 0; i < res.data.length; i++) {
-                    if (res.data[i].subject.includes(searchTerm) || res.data[i].title.includes(searchTerm) || res.data[i].description.includes(searchTerm)) {
-                        setSearchResults(searchResults => [...searchResults, res.data[i]]);
+                    if (res.data[i].subject.toLowerCase().includes(searchTerm.toLowerCase()) || res.data[i].title.toLowerCase().includes(searchTerm.toLowerCase()) || res.data[i].description.toLowerCase().includes(searchTerm.toLowerCase())) {
+                        setSearchResults(searchResults => [...searchResults, res.data[i]].slice(0, 10));
                     }
                 }
 
