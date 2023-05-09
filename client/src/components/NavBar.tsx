@@ -51,7 +51,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)})`,
     transition: theme.transitions.create("width"),
     width: "100%",
@@ -109,32 +108,29 @@ function NavBar() {
 }, [location]);
 
   
-
   return (
     <AppBar position='static'>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
-          <SchoolRoundedIcon
-            sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-          />
+          <SchoolRoundedIcon sx={{ mr: 1 }} />
           <Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
-          <Typography
-            variant='h6'
-            noWrap
-            component='a'
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}>
-            LibreLearn
-          </Typography>
+            <Typography
+              variant='h6'
+              noWrap
+              component='a'
+              sx={{
+                mr: 2,
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}>
+              LibreLearn
+            </Typography>
           </Link>
 
+          {!location.pathname.startsWith("/search") && (
           <Search sx={{ background: "center" }}>
             <SearchIconWrapper>
               <SearchIcon />
@@ -152,63 +148,8 @@ function NavBar() {
               }}
             />
           </Search>
+          )}
 
-
-
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size='large'
-              aria-label='account of current user'
-              aria-controls='menu-appbar'
-              aria-haspopup='true'
-              onClick={handleOpenNavMenu}
-              color='inherit'>
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id='menu-appbar'
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}>
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign='center'>{page}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <SchoolRoundedIcon
-            sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
-          />
-          <Typography
-            variant='h5'
-            noWrap
-            component='a'
-            href=''
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}>
-            LOGO
-          </Typography>
           <Box
             sx={{
               flexGrow: 1,
@@ -217,14 +158,24 @@ function NavBar() {
               pr: 5,
             }}>
               {loggedIn ? (
+                <>
                 <Link to='/cardmake' style={{ textDecoration: 'none', color: 'inherit' }}>
                 <Button
                   key='Create Cards'
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block", pr: 2 }}>
+                  sx={{ my: 2, color: "white", display: "block", px: 2 }}>
                   Create Cards
                 </Button>
               </Link>
+              <Link to='/assistant' style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Button
+                  key='Assistant'
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block", px: 2 }}>
+                  Virtual Assistant
+                </Button>
+              </Link>
+              </>
               )
               : (
                 <>
@@ -232,7 +183,7 @@ function NavBar() {
                 <Button
                   key='Sign up'
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block", pr: 2 }}>
+                  sx={{ my: 2, color: "white", display: "block", px: 3 }}>
                   Sign up
                 </Button>
                 </Link>
@@ -240,13 +191,14 @@ function NavBar() {
                 <Button
                   key='Log In'
                   onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block", pr: 2 }}>
+                  sx={{ my: 2, color: "white", display: "block", px: 3 }}>
                   Log In
                 </Button>
                 </Link>
                 </>
               )}
           </Box>
+          
           {loggedIn && 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title='Settings'>
@@ -284,4 +236,6 @@ function NavBar() {
     </AppBar>
   );
 }
+
+
 export default NavBar;

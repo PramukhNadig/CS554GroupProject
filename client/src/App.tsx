@@ -13,6 +13,7 @@ import YourProfile from "./pages/YourProfile";
 import Logout from "./pages/Logout";
 import Search from "./pages/Search";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Assistant from "./pages/Assistant";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="/logout" element={<Logout />} />
         <Route path="/search" element={<Search  />} />
         <Route path="/search/:searchTerm" element={<Search />} />
+        <Route path="/assistant" element={<Assistant />} />
         <Route path="*" element={<h1>Not Found</h1>} />
       </Routes>
     </Router>
