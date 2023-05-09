@@ -4,9 +4,9 @@ import HomeList from "../components/HomeList";
 
 function Home() {
 
-  const username:string = cookies.getCookie("username") || "test";
+  const username:string = cookies.getCookie("username") || "";
 
-  if (username === null ||username === undefined || username === "" || cookies.getCookie("id") === undefined || cookies.getCookie("id") === "" || cookies.getCookie("id") === null) {
+  if (cookies.doesExist("username") === false) {
     return (
         <div>
           <h1>Welcome!</h1>
