@@ -42,6 +42,8 @@ const getSetsByOwner = async (owner: string) => {
   const setCollection = await sets();
   const setList = await setCollection.find({ owner }).toArray();
 
+  if (setList === null) throw `Could not find set with owner of ${owner}`;
+  
   return setList;
 };
 
