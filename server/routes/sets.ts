@@ -1,7 +1,7 @@
 import express from "express";
 import setServices from "../services/sets";
 import users from "../services/users";
-import { connectRedis } from "../config/redis";
+// import { connectRedis } from "../config/redis";
 import { Console } from "console";
 const router = express.Router();
 
@@ -21,13 +21,9 @@ type LearningSet = {
 
 // define the home page route
 router.get("/", async (req, res) => {
-  const client = await connectRedis();
-  const ress = await client.get("set");
-  let sets = ress ? JSON.parse(ress) : null;
-  if (!sets) {
-    sets = await setServices.getSets();
-    await client.set("set", JSON.stringify(sets));
-  }
+  // const client = await connectRedis();
+    let sets = await setServices.getSets();
+    // await client.set("set", JSON.stringify(sets));
 
   res.json(sets);
 });
@@ -39,14 +35,13 @@ router.get("/my/:name", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
-  const client = await connectRedis();
-  const ress = await client.hGet("sets", id);
+  // const client = await connectRedis();
+  // const ress = await client.hGet("sets", id);
 
-  let sets = ress ? JSON.parse(ress) : null;
-  if (!sets) {
-    sets = await setServices.getSetsById(id);
-    await client.hSet("sets", id, JSON.stringify(sets));
-  }
+  // let sets = ress ? JSON.parse(ress) : null;
+    let sets = await setServices.getSetsById(id);
+    // await client.hSet("sets", id, JSON.stringify(sets));
+  
 
   res.json(sets);
 });
@@ -55,8 +50,6 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   const { owner, title, description, subject, cards } = req.body;
   let tmp = await setServices.createSet(owner,title, description, subject, cards);
-  const client = await connectRedis();
-  await client.del("set");
   console.log("tmp", tmp)
   res.send("success");
 });
@@ -87,37 +80,23 @@ router.post("/unsave", async (req, res) => {
 
 router.get("/sets/:name", async (req, res) => {
   const name = req.params.name;
-  const client = await connectRedis();
-  const ress = await client.hGet("sets", name);
 
-  let sets = ress ? JSON.parse(ress) : null;
-  if (!sets) {
-    sets = await setServices.getSetsByOwner(name);
-    await client.hSet("sets", name, JSON.stringify(sets));
-  }
+    let sets = await setServices.getSetsByOwner(name);
+  
 
   res.json(sets);
 });
 
 router.get("/saved/:name", async (req, res) => {
   const name = req.params.name;
-  const client = await connectRedis();
-  const ress = await client.hGet("sets", name);
 
-  let sets = ress ? JSON.parse(ress) : null;
-  if (!sets) {
     try {
-      sets = await users.getSavedSets(name);
-      await client.hSet("sets", name, JSON.stringify(sets));
+      let sets = await users.getSavedSets(name);
       return res.json(sets);
     } catch (e) {
       console.log(e);
       return res.status(404).send("username is empty");
     }
-
-  }
-
-  return res.json(sets);
 });
 
 router.get('/savedverbose/:name', async (req, res) => {

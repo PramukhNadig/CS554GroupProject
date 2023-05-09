@@ -4,7 +4,7 @@ import router from "./routes/index.js";
 import session from "express-session";
 
 import cors from "cors";
-import { connectRedis } from "./config/redis.js";
+// import { connectRedis } from "./config/redis.js";
 
 dotenv.config();
 
@@ -31,6 +31,5 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.listen(port, () => {
-  connectRedis();
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
 });

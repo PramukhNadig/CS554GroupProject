@@ -1,7 +1,8 @@
+import dotenv from "dotenv";
 export default {
   mongoConfig: {
     serverUrl:
-      "mongodb+srv://tony0824:Wlsdn1995@cluster0.7akaqsf.mongodb.net/test",
+      process.env.MONGODB_URI || "mongodb+srv://tony0824:Wlsdn1995@cluster0.7akaqsf.mongodb.net/test",
     database: "cs554_db",
   },
 };
