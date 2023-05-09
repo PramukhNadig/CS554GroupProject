@@ -49,6 +49,7 @@ router.post("/save", async (req, res) => {
   }
   console.log("userId", req.body.username);
   console.log("saveSet", req.body.setId);
+
   await users.saveSet(req.body.username, req.body.setId);
 
   res.send("success");
@@ -57,6 +58,12 @@ router.post("/save", async (req, res) => {
 router.get("/sets/:name", async (req, res) => {
   const name = req.params.name;
   const sets = await setServices.getSetsByOwner(name);
+  res.json(sets);
+});
+
+router.get('/saved/:name', async (req, res) => {
+  const name = req.params.name;
+  const sets = await users.getSavedSets(name);
   res.json(sets);
 });
 

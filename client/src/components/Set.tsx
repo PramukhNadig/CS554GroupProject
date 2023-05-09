@@ -5,6 +5,8 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import axios from "axios";
 import { Button, Typography } from "@mui/material";
+import cookies from "../helpers/cookies";
+import { useQuery } from "react-query";
 
 function App({ subject, title, description, cards, setId }: any) {
   const [index, setIndex] = useState(0);
@@ -15,6 +17,16 @@ function App({ subject, title, description, cards, setId }: any) {
     setShowBack(!showBack);
   };
 
+
+  // const { data: savedSets } = useQuery(["SavedSets"], () => {
+  //   return axios  
+  //     .get("http://localhost:4000/v1/sets/saved/" + cookies.getCookie("username"))
+  //     .then((res) => {
+  //       console.log(res.data.saved_sets);
+  //       return res.data.saved_sets;
+  //     });
+  // });
+
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
@@ -22,10 +34,12 @@ function App({ subject, title, description, cards, setId }: any) {
           <Button
             variant='contained'
             onClick={() => {
-              axios.post("http://localhost:4000/v1/sets/save", {
-                username: "tony0824",
-                setId,
-              });
+              if (cookies.doesExist("username")) {
+                axios.post("http://localhost:4000/v1/sets/save", {
+                  username: cookies.getCookie("username"),
+                  setId,
+                });
+              }
             }}>
             Bookmark
           </Button>

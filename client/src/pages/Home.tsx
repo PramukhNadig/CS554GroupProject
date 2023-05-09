@@ -1,5 +1,3 @@
-import axios from "axios";
-import { useQuery } from "react-query";
 import { Container, Grid } from "@mui/material";
 import cookies from "../helpers/cookies";
 import HomeList from "../components/HomeList";

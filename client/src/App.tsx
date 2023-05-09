@@ -12,7 +12,7 @@ import Set from "./pages/Set";
 import YourProfile from "./pages/YourProfile";
 import Logout from "./pages/Logout";
 import Search from "./pages/Search";
-import { BrowserRouter as Router, Route, Routes, useParams } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {
   return (

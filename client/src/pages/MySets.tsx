@@ -11,7 +11,7 @@ function App() {
       return res.data;
     });
   });
-  console.log("data", data);
+
   return (
     <Box sx={{ padding: 2 }}>
       <Grid container spacing={2}>

@@ -1,5 +1,3 @@
-import React from 'react';
-import Flashcard from './FlashcardList'; 
 import Set from './Set';
 interface ProfileProps {
     name: string;

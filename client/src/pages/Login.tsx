@@ -4,8 +4,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Alert } from "@mui/material";
-
-import setCookie from "../helpers/cookies";
 import cookies from "../helpers/cookies";
 import {
   Box,

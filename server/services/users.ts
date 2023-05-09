@@ -126,4 +126,28 @@ const saveSet = async (username: string, setID: string) => {
   return { updated: true };
 };
 
-export default { createUser, checkUser, saveSet };
+const getSavedSets = async (username: string) => {
+  const lowerUsername = username.toLowerCase();
+  if (!lowerUsername) {
+    throw new Error("Username is empty");
+  }
+  if (typeof lowerUsername !== "string" || lowerUsername.length < 4) {
+    throw new Error(
+      "user name should be a valid string and should be at least 4 characters long."
+    );
+  }
+
+  const userCollections = await users();
+
+  const findUserName = await userCollections.findOne({
+    username: lowerUsername,
+  });
+
+  if (!findUserName) {
+    throw new Error("Either the username or setID is invalid");
+  }
+
+  return { saved_sets: findUserName.saved_sets };
+};
+
+export default { createUser, checkUser, saveSet, getSavedSets };
