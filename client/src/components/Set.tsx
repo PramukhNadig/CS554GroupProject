@@ -7,7 +7,6 @@ import axios from "axios";
 import { Button, Typography, Link } from "@mui/material";
 import cookies from "../helpers/cookies";
 import { useQuery } from "react-query";
-import { useNavigate } from "react-router-dom";
 
 function App({ subject, title, description, cards, setId, owner }: any) {
   const [index, setIndex] = useState(0);
@@ -26,7 +25,6 @@ function App({ subject, title, description, cards, setId, owner }: any) {
     });
   });
 
-  const navigate = useNavigate();
 
   const nav = (own: any) => {
     return '/userprofile/' + own;

@@ -6,12 +6,13 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import cookies from "../helpers/cookies";
 import { useParams } from "react-router-dom";
+import Link from "@mui/material/Link";
 
 function App() {
   const user = useParams().user;
   let fourohfour = false;
   const { data: owned } = useQuery(["MySets"], () => {
-    return axios.get("http://localhost:4000/v1/sets/sets/" + user).then((res) => {
+    return axios.get("http://localhost:4000/v1/sets/my/" + user).then((res) => {
       if (res.status === 404) { 
         fourohfour = true;
         return [];
@@ -21,7 +22,7 @@ function App() {
     });
   });
   const { data: saved } = useQuery(["SavedSets"], () => {
-    return axios.get("http://localhost:4000/v1/sets/saved/" + user).then((res) => {
+    return axios.get("http://localhost:4000/v1/sets/savedverbose/" + user).then((res) => {
       if (res.status === 404) {
         fourohfour = true;
         return [];
@@ -54,14 +55,18 @@ function App() {
       <Typography variant='h4' sx={{ mt: 2 }}>
         {owned && owned?.length === 0 && "No sets found"}
         {owned && owned?.length > 0 && owned?.map((set: any) => (
-          <li key={set.setId}>{set.title}</li>
+          <li key={set._id}>
+            <Link href={"/set/" + set._id}>{set.title}</Link>
+            </li>
         ))}
       </Typography>
       <Typography variant='h5' sx={{ mt: 2 }}>
         Saved Sets:
-      {saved && saved?.length === 0 && "No sets found"}
+      {saved && saved?.length === 0 && <p>"No sets found"</p>}
         {saved && saved?.length > 0 && saved?.map((set: any) => (
-          <li key={set.setId}>{set.title}</li>
+          <li key={set._id}>
+            <Link href={"/set/" + set._id}>{set.title}</Link>
+          </li>
         ))}
       </Typography>
     </Box>

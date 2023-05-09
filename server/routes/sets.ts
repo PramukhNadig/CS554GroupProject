@@ -22,11 +22,11 @@ type LearningSet = {
 // define the home page route
 router.get("/", async (req, res) => {
   const client = await connectRedis();
-  const ress = await client.get("sets");
+  const ress = await client.get("set");
   let sets = ress ? JSON.parse(ress) : null;
   if (!sets) {
     sets = await setServices.getSets();
-    await client.set("sets", JSON.stringify(sets));
+    await client.set("set", JSON.stringify(sets));
   }
 
   res.json(sets);
@@ -56,7 +56,7 @@ router.post("/", async (req, res) => {
   const { owner, title, description, subject, cards } = req.body;
   let tmp = await setServices.createSet(owner,title, description, subject, cards);
   const client = await connectRedis();
-  await client.del("sets");
+  await client.del("set");
   console.log("tmp", tmp)
   res.send("success");
 });
@@ -119,5 +119,19 @@ router.get("/saved/:name", async (req, res) => {
 
   return res.json(sets);
 });
+
+router.get('/savedverbose/:name', async (req, res) => {
+  const name = req.params.name;
+  let sets = [];
+  try {
+    sets = await setServices.getSavedSetsByName(name);
+  } catch (e) {
+    console.log(e);
+    return res.status(404).send("username is empty");
+  }
+
+  return res.json(sets);
+});
+      
 
 export default router;
