@@ -38,7 +38,7 @@ router.post('/', upload.single('file'), async (req: any, res: any) => {
         size: file.size,
         type: file.mimetype,
         originalName: file.originalname,
-        url: `http://localhost:4000/images/${file.filename}`
+        url: `http://localhost:4000/v1/images/${file.filename}`
     }
     await imagemagick.resize({
         srcPath: file.path,
@@ -53,7 +53,7 @@ router.post('/', upload.single('file'), async (req: any, res: any) => {
         console.log('resized image to fit within 200x200px');
     });
 
-        res.json(file.filename)
+        res.json(image.url)
 });
 
 router.get('/:name', async (req: any, res: any) => {

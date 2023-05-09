@@ -28,8 +28,14 @@ function App() {
   const [description, setDescription] = useState("");
   const [subject, setSubject] = useState("");
   const [cards, setCards] = useState<Card[]>([initCard, initCard, initCard]);
+  const [index, setIndex] = useState(cards?.length - 1);
   if (!cookies.doesExist("username")) return unloggedIn;
 
+  const handleValueChange = (index: number, value: Card) => {
+    const newCards = [...cards];
+    newCards[index] = value;
+    setCards(newCards);
+  };
   return (
     <Box
       sx={{
@@ -61,12 +67,12 @@ function App() {
       </Box>
       {cards.map((currElem, index) => {
         return (
-      <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+          <Box key={index} sx={{ display: "flex", alignItems: "center", gap: 2 }}>
             <TextField label='Term' variant='outlined' sx={{ flex: 1 }} onChange={
-              (e) => { cards[index].word = e.target.value }
-      }/>
+            (e) => { handleValueChange(index, { ...cards[index], word: e.target.value }) }
+      } />
             <TextField label='Definition' variant='outlined' sx={{ flex: 1 }} onChange={
-              (e) => { cards[index].meaning = e.target.value }
+              (e) => { handleValueChange(index, { ...cards[index], meaning: e.target.value }) }
       } />
             <input
               type='file'
@@ -82,9 +88,12 @@ function App() {
                 console.log(e.target.files[0].name)
                 formData.append('file', e.target.files[0]);
 
-                let imageId = await axios.post("http://localhost:4000/v1/images", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
-                cards[index].imageUrl = imageId;
-          }
+          let imageId = await axios.post("http://localhost:4000/v1/images", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+                if (imageId.data) { 
+                  imageId = imageId.data
+                }
+                handleValueChange(index, { ...cards[index], imageUrl: imageId })
+        }
         }
               
               onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -100,7 +109,7 @@ function App() {
                 if (imageId.data) { 
                   imageId = imageId.data
                 }
-                cards[index].imageUrl = imageId;
+                handleValueChange(index, { ...cards[index], imageUrl: imageId })
               }}
 
         accept='image/*'
@@ -119,7 +128,12 @@ function App() {
         <Button
           sx={{ margin: 1 }}
           variant='contained'
-          onClick={() => setCards((s) => [...s, initCard])}>
+          onClick={
+            () => {
+              setCards([...cards, initCard]);
+              setIndex(index + 1);
+            }
+          }>
           + Add Card
         </Button>
         <Button

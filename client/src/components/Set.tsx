@@ -66,16 +66,17 @@ function App({ subject, title, description, cards, setId, owner }: any) {
             {description}
           </Typography>
           <div className='card'>
-            <img
-              src={currentCard?.imageUrl}
-              alt={currentCard?.word}
-              style={{ maxWidth: "100%" }}
-            />
+            {currentCard?.imageUrl && (currentCard?.imageUrl !== "") && (
+              <img
+                src={currentCard?.imageUrl}
+                alt={currentCard?.word}
+                style={{ maxWidth: "100%" }}
+              />
+            )
+            }
             <div className='card-details'>
-              {showBack && (
                 <Typography variant='h3'>{currentCard?.word}</Typography>
-              )}
-              <Typography variant='body1'>{currentCard?.meaning}</Typography>
+              <Typography variant='body1'>{showBack && currentCard?.meaning}</Typography>
             </div>
             <Button onClick={handleClick} sx={{ mt: 2 }}>
               Flip
