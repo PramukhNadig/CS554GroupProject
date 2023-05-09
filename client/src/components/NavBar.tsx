@@ -18,6 +18,9 @@ import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Link, useNavigate } from "react-router-dom";
+import cookies from "../helpers/cookies";
+import { useEffect, useState } from "react";
+import { useLocation } from 'react-router-dom';
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -66,6 +69,9 @@ const pages = ["Create Cards", "My Cards"];
 const settings = ["Profile", "Logout"];
 
 function NavBar() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+
   const [anchorElNav, setAnchorElNav] = React.useState<HTMLElement | null>(
     null
   );
@@ -89,6 +95,20 @@ function NavBar() {
   };
 
   const navigate = useNavigate();
+
+  const location = useLocation();
+
+  useEffect(() => {
+    const checkLoginStatus = () => {
+      const isLoggedIn = cookies.doesExist("username") === true;
+      setLoggedIn(isLoggedIn);
+    };
+
+  checkLoginStatus();
+
+}, [location]);
+
+  
 
   return (
     <AppBar position='static'>
@@ -189,16 +209,38 @@ function NavBar() {
               justifyContent: "flex-end",
               pr: 5,
             }}>
-            <Link to='/cardmake'>
-              <Button
-                key='Create Cards'
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block", pr: 2 }}>
-                Create Cards
-              </Button>
-            </Link>
+              {loggedIn ? (
+                <Link to='/cardmake' style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Button
+                  key='Create Cards'
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block", pr: 2 }}>
+                  Create Cards
+                </Button>
+              </Link>
+              )
+              : (
+                <>
+                <Link to='/signup' style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Button
+                  key='Sign up'
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block", pr: 2 }}>
+                  Sign up
+                </Button>
+                </Link>
+                <Link to='/login' style={{ textDecoration: 'none', color: 'inherit' }}>
+                <Button
+                  key='Log In'
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, color: "white", display: "block", pr: 2 }}>
+                  Log In
+                </Button>
+                </Link>
+                </>
+              )}
           </Box>
-
+          {loggedIn && 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title='Settings'>
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -222,11 +264,14 @@ function NavBar() {
               onClose={handleCloseUserMenu}>
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                  <Link to={`/${setting}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                   <Typography textAlign='center'>{setting}</Typography>
+                  </Link>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
+          }
         </Toolbar>
       </Container>
     </AppBar>
