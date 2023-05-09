@@ -25,7 +25,7 @@ function App() {
             setError(false);
             try {
                 setSearchResults([]);
-                let url = 'http://localhost:4000/v1/sets/';
+                let url = 'https://test-backendfdsfd.herokuapp.com/v1/sets/';
                 const res = await axios.get(url);
                 for (let i = 0; i < res.data.length; i++) {
                     if (res.data[i].subject.toLowerCase().includes(searchTerm.toLowerCase()) || res.data[i].title.toLowerCase().includes(searchTerm.toLowerCase()) || res.data[i].description.toLowerCase().includes(searchTerm.toLowerCase())) {

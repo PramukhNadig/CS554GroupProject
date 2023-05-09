@@ -19,8 +19,8 @@ function App(name: any) {
       setLoading(true);
       setError(false);
       try {
-        let url = "http://localhost:4000/v1/sets/sets/" + name.name;
-        url = "http://localhost:4000/v1/sets/sets/test";
+        let url = "https://test-backendfdsfd.herokuapp.com/v1/sets/sets/" + name.name;
+        url = "https://test-backendfdsfd.herokuapp.com/v1/sets/sets/test";
         console.log(url);
         const res = await axios.get(url);
         console.log(res.data);

@@ -12,7 +12,7 @@ function App() {
   const user = useParams().user;
   let fourohfour = false;
   const { data: owned } = useQuery(["MySets"], () => {
-    return axios.get("http://localhost:4000/v1/sets/my/" + user).then((res) => {
+    return axios.get("https://test-backendfdsfd.herokuapp.com/v1/sets/my/" + user).then((res) => {
       if (res.status === 404) { 
         fourohfour = true;
         return [];
@@ -22,7 +22,7 @@ function App() {
     });
   });
   const { data: saved } = useQuery(["SavedSets"], () => {
-    return axios.get("http://localhost:4000/v1/sets/savedverbose/" + user).then((res) => {
+    return axios.get("https://test-backendfdsfd.herokuapp.com/v1/sets/savedverbose/" + user).then((res) => {
       if (res.status === 404) {
         fourohfour = true;
         return [];

@@ -9,7 +9,7 @@ import { Navigate } from "react-router-dom";
 
 function App() {
   const { data } = useQuery(["MySets"], () => {
-    return axios.get("http://localhost:4000/v1/sets/my/" + cookies.getCookie("username")).then((res) => {
+    return axios.get("https://test-backendfdsfd.herokuapp.com/v1/sets/my/" + cookies.getCookie("username")).then((res) => {
       console.log(res.data)
       return res.data;
     });

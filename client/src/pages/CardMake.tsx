@@ -88,7 +88,7 @@ function App() {
                 console.log(e.target.files[0].name)
                 formData.append('file', e.target.files[0]);
 
-          let imageId = await axios.post("http://localhost:4000/v1/images", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+          let imageId = await axios.post("https://test-backendfdsfd.herokuapp.com/v1/images", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
                 if (imageId.data) { 
                   imageId = imageId.data
                 }
@@ -105,7 +105,7 @@ function App() {
                 formData.append('file', e.target.files[0]);
                 formData.append('name', 'file')
                 formData.append('type', 'file')
-                let imageId = await axios.post("http://localhost:4000/v1/images", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+                let imageId = await axios.post("https://test-backendfdsfd.herokuapp.com/v1/images", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
                 if (imageId.data) { 
                   imageId = imageId.data
                 }
@@ -151,7 +151,7 @@ function App() {
               return alert("Please fill out all fields");
             
             
-            await axios.post("http://localhost:4000/v1/sets", {
+            await axios.post("https://test-backendfdsfd.herokuapp.com/v1/sets", {
               owner: cookies.getCookie("username"),
               title: title,
               description: description,

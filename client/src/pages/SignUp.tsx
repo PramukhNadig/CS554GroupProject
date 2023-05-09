@@ -43,7 +43,7 @@ function SignUp() {
         <form
           onSubmit={async (e) => {
             e.preventDefault();
-            await axios.post("http://localhost:4000/v1/users/signup", {
+            await axios.post("https://test-backendfdsfd.herokuapp.com/v1/users/signup", {
               username: (e.target as any).username.value,
               password: (e.target as any).password.value,
               email: (e.target as any).email.value,

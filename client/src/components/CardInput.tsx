@@ -13,7 +13,7 @@ function App() {
         onSubmit={(e: React.ChangeEvent<HTMLInputElement>) => {
           e.preventDefault();
           if (!e.target.files) return;
-          let imageId = axios.post("http://localhost:4000/v1/images", { image: e.target.files[0] });
+          let imageId = axios.post("https://test-backendfdsfd.herokuapp.com/", { image: e.target.files[0] });
           }
         }
         type='file'
