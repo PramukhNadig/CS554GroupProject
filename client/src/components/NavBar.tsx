@@ -117,11 +117,11 @@ function NavBar() {
           <SchoolRoundedIcon
             sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
           />
+          <Link to='/' style={{ textDecoration: 'none', color: 'inherit' }}>
           <Typography
             variant='h6'
             noWrap
             component='a'
-            href='/'
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -133,20 +133,27 @@ function NavBar() {
             }}>
             LibreLearn
           </Typography>
+          </Link>
 
           <Search sx={{ background: "center" }}>
             <SearchIconWrapper>
               <SearchIcon />
             </SearchIconWrapper>
             <StyledInputBase
-              placeholder='Search…'
+              placeholder="Search…"
               inputProps={{ "aria-label": "search" }}
-              onSubmit={(event:React.ChangeEvent<HTMLInputElement>) => {
-                navigate("/search/" + event.target.value);
+              onKeyPress={(event: React.KeyboardEvent<HTMLInputElement>) => {
+                if (event.key === "Enter") {
+                  event.preventDefault();
+                  const inputValue = (event.target as HTMLInputElement).value;
+                  navigate("/search/" + inputValue);
+                  (event.target as HTMLInputElement).value = '';
                 }
-              }
+              }}
             />
           </Search>
+
+
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
