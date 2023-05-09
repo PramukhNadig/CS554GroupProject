@@ -6,7 +6,6 @@ import imagemagick from 'imagemagick';
 import { Console } from 'console';
 import { promises as fs } from 'fs';
 import { ObjectId } from 'mongodb';
-import { connectRedis } from '../config/redis';
 
 const router = express.Router();
 
@@ -60,9 +59,5 @@ router.get('/:name', async (req: any, res: any) => {
     res.sendFile(path.join(__dirname, `../../images/${req.params.name}`));
 });
 
-function getImage(name: any) {
-
-     
-}
 
 export default router;
