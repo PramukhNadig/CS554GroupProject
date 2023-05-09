@@ -53,11 +53,11 @@ router.get("/:id", async (req, res) => {
 
 // define the about route
 router.post("/", async (req, res) => {
-  const { title, description, subject, cards } = req.body;
-  let tmp = await setServices.createSet("test", title, description, subject, cards);
+  const { owner, title, description, subject, cards } = req.body;
+  let tmp = await setServices.createSet(owner,title, description, subject, cards);
   const client = await connectRedis();
   await client.del("sets");
-  await client.hSet("sets", tmp._id, JSON.stringify(tmp));
+  console.log("tmp", tmp)
   res.send("success");
 });
 

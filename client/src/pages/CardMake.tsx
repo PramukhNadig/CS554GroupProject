@@ -10,7 +10,7 @@ import { TextField, Button, Box } from "@mui/material";
 type Card = {
   word: string;
   meaning: string;
-  imageUrl: string;
+  imageUrl: any;
 };
 
 const unloggedIn = (
@@ -28,8 +28,14 @@ function App() {
   const [description, setDescription] = useState("");
   const [subject, setSubject] = useState("");
   const [cards, setCards] = useState<Card[]>([initCard, initCard, initCard]);
+  const [index, setIndex] = useState(cards?.length - 1);
   if (!cookies.doesExist("username")) return unloggedIn;
 
+  const handleValueChange = (index: number, value: Card) => {
+    const newCards = [...cards];
+    newCards[index] = value;
+    setCards(newCards);
+  };
   return (
     <Box
       sx={{
@@ -59,14 +65,75 @@ function App() {
           onChange={(e) => setSubject(e.target.value)}
         />
       </Box>
-      {cards.map(() => {
-        return <CardInput />;
+      {cards.map((currElem, index) => {
+        return (
+          <Box key={index} sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+            <TextField label='Term' variant='outlined' sx={{ flex: 1 }} onChange={
+            (e) => { handleValueChange(index, { ...cards[index], word: e.target.value }) }
+      } />
+            <TextField label='Definition' variant='outlined' sx={{ flex: 1 }} onChange={
+              (e) => { handleValueChange(index, { ...cards[index], meaning: e.target.value }) }
+      } />
+            <input
+              type='file'
+              name='file'
+
+        onSubmit={async(e: React.ChangeEvent<HTMLInputElement>) => {
+          e.preventDefault();
+                          let formData = new FormData();
+
+                if (!e.target.files) return;
+                e.preventDefault();
+                if (!e.target.files) return;
+                console.log(e.target.files[0].name)
+                formData.append('file', e.target.files[0]);
+
+          let imageId = await axios.post("http://localhost:4000/v1/images", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+                if (imageId.data) { 
+                  imageId = imageId.data
+                }
+                handleValueChange(index, { ...cards[index], imageUrl: imageId })
+        }
+        }
+              
+              onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
+                let formData = new FormData();
+                e.preventDefault();
+                if (!e.target.files) return;
+                console.log(e.target.files[0].name)
+
+                formData.append('file', e.target.files[0]);
+                formData.append('name', 'file')
+                formData.append('type', 'file')
+                let imageId = await axios.post("http://localhost:4000/v1/images", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+                if (imageId.data) { 
+                  imageId = imageId.data
+                }
+                handleValueChange(index, { ...cards[index], imageUrl: imageId })
+              }}
+
+        accept='image/*'
+        
+        style={{
+          backgroundColor: "#f5f5f5",
+          border: "1px solid #ccc",
+          borderRadius: "5px",
+          padding: "10px",
+        }}
+      />
+          </Box>
+        );
       })}
       <Box sx={{ alignSelf: "center" }}>
         <Button
           sx={{ margin: 1 }}
           variant='contained'
-          onClick={() => setCards((s) => [...s, initCard])}>
+          onClick={
+            () => {
+              setCards([...cards, initCard]);
+              setIndex(index + 1);
+            }
+          }>
           + Add Card
         </Button>
         <Button
@@ -82,11 +149,15 @@ function App() {
               )
             )
               return alert("Please fill out all fields");
+            
+            
             await axios.post("http://localhost:4000/v1/sets", {
-              title,
-              description,
-              subject,
-              cards,
+              owner: cookies.getCookie("username"),
+              title: title,
+              description: description,
+              subject: subject,
+              cards: cards,
+
             });
             navigate("/");
           }}>
