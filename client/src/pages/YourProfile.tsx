@@ -34,7 +34,7 @@ function App() {
 
   return (
     <Box sx={{ textAlign: "center", mt: 4 }}>
-      <Typography variant='h1'>My Profile</Typography>
+      <Typography variant='h1'>Profile</Typography>
       <Typography variant='h2' sx={{ mt: 2 }}>
         Username: {user}
       </Typography>

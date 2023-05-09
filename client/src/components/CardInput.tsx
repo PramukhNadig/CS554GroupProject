@@ -6,7 +6,7 @@ function App() {
   return (
     <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
       <TextField label='Term' variant='outlined' sx={{ flex: 1 }} />
-      <TextField label='Defination' variant='outlined' sx={{ flex: 1 }} />
+      <TextField label='Definition' variant='outlined' sx={{ flex: 1 }} />
       <input
         type='file'
         style={{

@@ -1,14 +1,15 @@
 /** @format */
-
+import React from "react";
 import { useState } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import axios from "axios";
-import { Button, Typography } from "@mui/material";
+import { Button, Typography, Link } from "@mui/material";
 import cookies from "../helpers/cookies";
 import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
 
-function App({ subject, title, description, cards, setId }: any) {
+function App({ subject, title, description, cards, setId, owner }: any) {
   const [index, setIndex] = useState(0);
   const [showBack, setShowBack] = useState(false);
   const currentCard = cards?.[index];
@@ -17,15 +18,19 @@ function App({ subject, title, description, cards, setId }: any) {
     setShowBack(!showBack);
   };
 
+  
+  const { data: savedSets } = useQuery(["SavedSets"], () => {
+    if(!cookies.doesExist("username")) return [];
+    return axios.get("http://localhost:4000/v1/sets/saved/" + cookies.getCookie("username")).then((res) => {
+      return res.data.saved_sets;
+    });
+  });
 
-  // const { data: savedSets } = useQuery(["SavedSets"], () => {
-  //   return axios  
-  //     .get("http://localhost:4000/v1/sets/saved/" + cookies.getCookie("username"))
-  //     .then((res) => {
-  //       console.log(res.data.saved_sets);
-  //       return res.data.saved_sets;
-  //     });
-  // });
+  const navigate = useNavigate();
+
+  const nav = (own: any) => {
+    return '/userprofile/' + own;
+  }
 
   return (
     <Card sx={{ minWidth: 275 }}>
@@ -35,15 +40,27 @@ function App({ subject, title, description, cards, setId }: any) {
             variant='contained'
             onClick={() => {
               if (cookies.doesExist("username")) {
-                axios.post("http://localhost:4000/v1/sets/save", {
-                  username: cookies.getCookie("username"),
-                  setId,
-                });
+                if (savedSets?.some((set: any) => set === setId)) {
+                  axios.post("http://localhost:4000/v1/sets/save", {
+                    username: cookies.getCookie("username"),
+                    setId,
+                  });
+
+                } else { 
+                  axios.post("http://localhost:4000/v1/sets/unsave", {
+                    username: cookies.getCookie("username"),
+                    setId,
+                  });
+                }
               }
             }}>
-            Bookmark
+            
+            {savedSets?.some((set: any) => set === setId) ? "Unsave" : "Save"}
           </Button>
-          <Typography variant='h4'>{subject}</Typography>
+          <Typography variant='h1'><Link href={nav(owner)}>
+            {owner}
+          </Link></Typography>
+          <Typography variant='h2'>{subject}</Typography>
           <Typography variant='h3'>{title}</Typography>
           <Typography variant='body1' sx={{ mb: 2 }}>
             {description}

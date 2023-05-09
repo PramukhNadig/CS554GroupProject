@@ -90,6 +90,7 @@ function App() {
               required
               fullWidth
               id='username'
+              color="primary"
               label='Username'
               name='username'
               autoComplete='username'

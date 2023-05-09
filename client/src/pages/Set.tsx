@@ -19,6 +19,7 @@ function Home() {
         subject={data?.subject}
         title={data?.title}
         description={data?.description}
+        owner={data?.owner}
         cards={data?.cards}
       ></Set>
     </div>

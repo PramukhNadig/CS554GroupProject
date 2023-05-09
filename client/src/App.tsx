@@ -24,7 +24,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/cardmake" element={<CardMake />} />
         <Route path="/cardsubject" element={<CardSubject />} />
-        <Route path="/userprofile/:username" element={<UserProfile />} />
+        <Route path="/userprofile/:user" element={<UserProfile />} />
         <Route path="/mysets" element={<MySets />} />
         <Route path="/set/:id" element={<Set />} />
         <Route path="/profile" element={<YourProfile />} />

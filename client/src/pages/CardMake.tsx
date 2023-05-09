@@ -78,7 +78,7 @@ function App() {
               return alert("Please fill out all fields");
             if (
               cards.some(
-                (card) => !card.word || !card.meaning || !card.imageUrl
+                (card) => !card.word || !card.meaning
               )
             )
               return alert("Please fill out all fields");
