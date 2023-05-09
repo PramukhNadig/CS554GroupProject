@@ -15,8 +15,6 @@ function Home() {
     );
   }
 
-  console.log((cookies.getCookie("username")));
-  console.log(typeof (cookies.getCookie("username")));
   return (
       <Container>
         <Grid container spacing={2}>

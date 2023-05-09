@@ -17,7 +17,7 @@ import { styled, alpha } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -88,6 +88,8 @@ function NavBar() {
     setAnchorElUser(null);
   };
 
+  const navigate = useNavigate();
+
   return (
     <AppBar position='static'>
       <Container maxWidth='xl'>
@@ -119,6 +121,10 @@ function NavBar() {
             <StyledInputBase
               placeholder='Search…'
               inputProps={{ "aria-label": "search" }}
+              onSubmit={(event:React.ChangeEvent<HTMLInputElement>) => {
+                navigate("/search/" + event.target.value);
+                }
+              }
             />
           </Search>
 

@@ -24,7 +24,11 @@ function App(name: any) {
         console.log(url);
         const res = await axios.get(url);
         console.log(res.data);
-        setSets(res.data);
+        if (res.data?.length > 5) {
+          setSets(res.data.slice(0, 5));
+        } else {
+          setSets(res.data);
+        }
       } catch (err) {
         setError(true);
       }
@@ -53,7 +57,7 @@ function App(name: any) {
     <div className="App">
       <h1>Home</h1>
 
-      <h3>Sets</h3>
+      <h2>Sets</h2>
       {loading && <p>Loading...</p>}
       {error && <p>Error!</p>}
       {set.length === 0 && <p>Create a set and it'll show up here!</p>}
@@ -64,6 +68,7 @@ function App(name: any) {
             subject: React.ReactNode;
             title: React.ReactNode;
             description: React.ReactNode;
+            owner: React.ReactNode;
             cards: any;
           }) => (
             <div key={set._id}>
@@ -72,6 +77,7 @@ function App(name: any) {
                 title={set.title}
                 description={set.description}
                 cards={set.cards}
+                owner={set.owner}
                 setId={set._id}
               ></Set>
               {/* <Grid item xs={12}>
