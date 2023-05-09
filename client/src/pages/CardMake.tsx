@@ -88,13 +88,13 @@ function App() {
                 console.log(e.target.files[0].name)
                 formData.append('file', e.target.files[0]);
 
-          let imageId = await axios.post("http://localhost:4000/v1/images", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+              let imageId = await axios.post("http://localhost:4000/v1/images", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
                 if (imageId.data) { 
                   imageId = imageId.data
                 }
                 handleValueChange(index, { ...cards[index], imageUrl: imageId })
-        }
-        }
+                }
+              }
               
               onChange={async (e: React.ChangeEvent<HTMLInputElement>) => {
                 let formData = new FormData();

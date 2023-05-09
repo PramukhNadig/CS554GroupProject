@@ -3,6 +3,8 @@ import setServices from "../services/sets";
 import users from "../services/users";
 import { connectRedis } from "../config/redis";
 import { Console } from "console";
+import { BSON } from "mongodb";
+import { ObjectId } from "bson";
 const router = express.Router();
 
 type Card = {
@@ -32,20 +34,44 @@ router.get("/", async (req, res) => {
   res.json(sets);
 });
 
+router.get('/my', async (req, res) => {
+  return res.status(404).send("username is empty");
+});
+
 router.get("/my/:name", async (req, res) => {
+
+  console.log("req.params.name", req.params.name)
+  if (!req.params.name) return res.status(404).send("username is empty");
+
+  if (req.params.name === "undefined") return res.status(404).send("username is empty");
+
+  if (req.params.name === "") return res.status(404).send("username is empty");
+
   const sets = await setServices.getSetsByOwner(req.params.name);
   res.json(sets);
 });
 
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
+
+  if (!id) return res.status(404).send("id is empty");
+  
+  if (id === "undefined") return res.status(404).send("id is empty");
+  
+  if (id === "") return res.status(404).send("id is empty");
+  
   const client = await connectRedis();
   const ress = await client.hGet("sets", id);
 
   let sets = ress ? JSON.parse(ress) : null;
   if (!sets) {
-    sets = await setServices.getSetsById(id);
-    await client.hSet("sets", id, JSON.stringify(sets));
+    try {
+      sets = await setServices.getSetsById(id);
+      await client.hSet("sets", id, JSON.stringify(sets));
+    } catch (e) {
+      console.log(e);
+      return res.status(404).send("id is not valid");
+    }
   }
 
   res.json(sets);

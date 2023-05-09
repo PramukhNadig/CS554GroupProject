@@ -60,15 +60,6 @@ function App() {
             </li>
         ))}
       </Typography>
-      <Typography variant='h5' sx={{ mt: 2 }}>
-        Saved Sets:
-      {saved && saved?.length === 0 && <p>"No sets found"</p>}
-        {saved && saved?.length > 0 && saved?.map((set: any) => (
-          <li key={set._id}>
-            <Link href={"/set/" + set._id}>{set.title}</Link>
-          </li>
-        ))}
-      </Typography>
     </Box>
   );
 }
