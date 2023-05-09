@@ -60,9 +60,5 @@ router.get('/:name', async (req: any, res: any) => {
     res.sendFile(path.join(__dirname, `../../images/${req.params.name}`));
 });
 
-function getImage(name: any) {
-
-     
-}
 
 export default router;
