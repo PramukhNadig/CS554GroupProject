@@ -106,11 +106,18 @@ router.get("/saved/:name", async (req, res) => {
 
   let sets = ress ? JSON.parse(ress) : null;
   if (!sets) {
-    sets = await users.getSavedSets(name);
-    await client.hSet("sets", name, JSON.stringify(sets));
+    try {
+      sets = await users.getSavedSets(name);
+      await client.hSet("sets", name, JSON.stringify(sets));
+      return res.json(sets);
+    } catch (e) {
+      console.log(e);
+      return res.status(404).send("username is empty");
+    }
+
   }
 
-  res.json(sets);
+  return res.json(sets);
 });
 
 export default router;

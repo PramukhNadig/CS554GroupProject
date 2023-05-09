@@ -9,25 +9,34 @@ import { useParams } from "react-router-dom";
 
 function App() {
   const user = useParams().user;
+  let fourohfour = false;
   const { data: owned } = useQuery(["MySets"], () => {
     return axios.get("http://localhost:4000/v1/sets/sets/" + user).then((res) => {
+      if (res.status === 404) { 
+        fourohfour = true;
+        return [];
+      }
       console.log(res.data)
       return res.data;
     });
   });
   const { data: saved } = useQuery(["SavedSets"], () => {
     return axios.get("http://localhost:4000/v1/sets/saved/" + user).then((res) => {
+      if (res.status === 404) {
+        fourohfour = true;
+        return [];
+      }
       console.log(res.data.saved_sets)
       return res.data.saved_sets;
     });
   });
 
-  if (cookies.doesExist("username") === false) {
+  if (fourohfour) {
     return (
       <Box sx={{ textAlign: "center", mt: 4 }}>
-        <Typography variant='h1'>My Profile</Typography>
+        <Typography variant='h1'>Profile</Typography>
         <Typography variant='h2' sx={{ mt: 2 }}>
-          Log in to view other profiles
+          User not found
         </Typography>
       </Box>
     );
@@ -43,12 +52,15 @@ function App() {
         User Made Sets:
       </Typography>
       <Typography variant='h4' sx={{ mt: 2 }}>
-        {owned && owned.map((set: any) => (
+        {owned && owned?.length === 0 && "No sets found"}
+        {owned && owned?.length > 0 && owned?.map((set: any) => (
           <li key={set.setId}>{set.title}</li>
         ))}
       </Typography>
       <Typography variant='h5' sx={{ mt: 2 }}>
-        Saved Sets: {saved && saved.map((set: any) => (
+        Saved Sets:
+      {saved && saved?.length === 0 && "No sets found"}
+        {saved && saved?.length > 0 && saved?.map((set: any) => (
           <li key={set.setId}>{set.title}</li>
         ))}
       </Typography>
