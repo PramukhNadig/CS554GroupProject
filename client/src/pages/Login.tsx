@@ -16,11 +16,17 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { Navigate } from "react-router-dom";
+import { Link as RouterLink } from 'react-router-dom';
 
 function App() {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+
+  if (cookies.doesExist("username") === true) {
+    return (<Navigate to="/" />);
+  }
 
   const alert = () => {
     if (errorMessage) {
@@ -106,10 +112,6 @@ function App() {
               id='password'
               autoComplete='current-password'
             />
-            <FormControlLabel
-              control={<Checkbox value='remember' color='primary' />}
-              label='Remember me'
-            />
             <Button
               type='submit'
               fullWidth
@@ -117,15 +119,10 @@ function App() {
               sx={{ mt: 3, mb: 2 }}>
               Sign In
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href='#' variant='body2'>
-                  Forgot password?
-                </Link>
-              </Grid>
+            <Grid container justifyContent="center" alignItems="center">
               <Grid item>
-                <Link href='/signup' variant='body2'>
-                  {"Don't have an account? Sign Up"}
+              <Link component={RouterLink} to="/signup">
+                  Don't have an account? Sign Up
                 </Link>
               </Grid>
             </Grid>

@@ -5,6 +5,7 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import { Box, Grid } from "@mui/material";
 import cookies from "../helpers/cookies";
+import { Navigate } from "react-router-dom";
 
 function App() {
   const { data } = useQuery(["MySets"], () => {
@@ -15,12 +16,13 @@ function App() {
   });
 
   if (cookies.doesExist("username") === false) {
-    return (
-      <Box sx={{ textAlign: "center", mt: 4 }}>
-        <h1>My Sets</h1>
-        <h2>Log in to view your sets</h2>
-      </Box>
-    );
+    // return (
+    //   <Box sx={{ textAlign: "center", mt: 4 }}>
+    //     <h1>My Sets</h1>
+    //     <h2>Log in to view your sets</h2>
+    //   </Box>
+    // );
+    return (<Navigate to="/login" />);
   }
 
   if(data?.length === 0){

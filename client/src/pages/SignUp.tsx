@@ -13,9 +13,16 @@ import {
   Grid,
   Link,
 } from "@mui/material";
+import { Navigate } from "react-router-dom";
+import cookies from '../helpers/cookies';
+import { Link as RouterLink } from 'react-router-dom';
 
 function SignUp() {
   const navigate = useNavigate();
+
+  if (cookies.doesExist("username") === true) {
+    return (<Navigate to="/" />);
+  }
 
   return (
     <Container component='main' maxWidth='sm'>
@@ -71,10 +78,6 @@ function SignUp() {
             id='password'
             autoComplete='current-password'
           />
-          <FormControlLabel
-            control={<Checkbox value='remember' color='primary' />}
-            label='Remember me'
-          />
           <Button
             type='submit'
             fullWidth
@@ -83,14 +86,9 @@ function SignUp() {
             Sign Up
           </Button>
         </form>
-        <Grid container>
-          <Grid item xs>
-            <Link href='#' variant='body2'>
-              Forgot password?
-            </Link>
-          </Grid>
+        <Grid container justifyContent="center" alignItems="center">
           <Grid item>
-            <Link href='/login' variant='body2'>
+          <Link component={RouterLink} to="/login">
               Already have an account? Log In
             </Link>
           </Grid>

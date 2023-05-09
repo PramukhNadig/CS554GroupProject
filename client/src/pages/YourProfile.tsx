@@ -5,6 +5,7 @@ import { Box, Typography } from "@mui/material";
 import { useQuery } from "react-query";
 import axios from "axios";
 import cookies from "../helpers/cookies";
+import { Navigate } from "react-router-dom";
 
 function App() {
   let fourohfour = false;
@@ -29,14 +30,14 @@ function App() {
   });
 
   if (cookies.doesExist("username") === false) {
-    return (
-      <Box sx={{ textAlign: "center", mt: 4 }}>
-        <Typography variant='h1'>My Profile</Typography>
-        <Typography variant='h2' sx={{ mt: 2 }}>
-          Log in to view your profile
-        </Typography>
-      </Box>
-    );
+    // return (
+      // <Box sx={{ textAlign: "center", mt: 4 }}>
+      //   <Typography variant='h1'>My Profile</Typography>
+      //   <Typography variant='h2' sx={{ mt: 2 }}>
+      //     Log in to view your profile
+      //   </Typography>
+      // </Box>
+      return (<Navigate to="/login" />);
   }
 
   if (fourohfour) {
