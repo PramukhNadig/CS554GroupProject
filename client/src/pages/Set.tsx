@@ -1,7 +1,7 @@
-import FlashCard from "../components/FlashCard";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
+import FlashCard from '../components/Flashcard';
 
 function Home() {
   const { id } = useParams();
