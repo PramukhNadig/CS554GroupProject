@@ -2,18 +2,23 @@ import { createClient } from "redis";
 import dotenv from "dotenv";
 dotenv.config();
 
-export const connectRedis = async () => {
-  const client = createClient({
+const client = createClient({
+    password: process.env.REDIS_PASSWORD as string,
     socket: {
-      host: process.env.REDIS_URI,
-      port: parseInt(process.env.REDIS_PORT || "6379"),
-    },
-    username: process.env.REDIS_USERNAME,
-    password: process.env.REDIS_PASSWORD,
+        host: 'redis-10140.c10.us-east-1-4.ec2.cloud.redislabs.com',
+        port: 10140
   }
-  );
+});
 
+client.on("error", (error) => {
+    console.error(error);
+}
+);
 
-  await client.connect();
-  return client;
-};
+export const connectRedis = async () => {
+    await client.connect();
+    console.log("connected to redis");
+}
+
+export default client;
+

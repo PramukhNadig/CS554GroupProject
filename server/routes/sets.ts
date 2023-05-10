@@ -1,7 +1,7 @@
 import express from "express";
 import setServices from "../services/sets";
 import users from "../services/users";
-import { connectRedis } from "../config/redis";
+import client from "../config/redis";
 import { Console } from "console";
 import { BSON } from "mongodb";
 import { ObjectId } from "bson";
@@ -23,7 +23,6 @@ type LearningSet = {
 
 // define the home page route
 router.get("/", async (req, res) => {
-  const client = await connectRedis();
   const ress = await client.get("set");
   let sets = ress ? JSON.parse(ress) : null;
   if (!sets) {
@@ -60,7 +59,6 @@ router.get("/:id", async (req, res) => {
   
   if (id === "") return res.status(404).send("id is empty");
   
-  const client = await connectRedis();
   const ress = await client.hGet("sets", id);
 
   let sets = ress ? JSON.parse(ress) : null;
@@ -81,7 +79,6 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   const { owner, title, description, subject, cards } = req.body;
   let tmp = await setServices.createSet(owner,title, description, subject, cards);
-  const client = await connectRedis();
   await client.del("set");
   console.log("tmp", tmp)
   res.send("success");
@@ -113,7 +110,6 @@ router.post("/unsave", async (req, res) => {
 
 router.get("/sets/:name", async (req, res) => {
   const name = req.params.name;
-  const client = await connectRedis();
   const ress = await client.hGet("sets", name);
 
   let sets = ress ? JSON.parse(ress) : null;
@@ -127,7 +123,6 @@ router.get("/sets/:name", async (req, res) => {
 
 router.get("/saved/:name", async (req, res) => {
   const name = req.params.name;
-  const client = await connectRedis();
   const ress = await client.hGet("sets", name);
 
   let sets = ress ? JSON.parse(ress) : null;

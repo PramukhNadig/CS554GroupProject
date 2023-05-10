@@ -2,4 +2,3 @@ dist
 node_modules
 dump.rdb
 images/
-.env
