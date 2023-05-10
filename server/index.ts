@@ -32,7 +32,13 @@ app.use(cookieParser(process.env.cookieSecret || "secret"));
 
 
 app.use("/v1", router);
-app.use("/", rateLimit({
+app.use("/v1/images/:name", rateLimit({
+  windowMs: 1 * 60 * 1000, //1 minute
+  max: 500,
+  message: "Too many requests",
+
+}));
+app.use("/v1/images/", rateLimit({
   windowMs: 1 * 60 * 1000, //1 minute
   max: 500,
   message: "Too many requests",

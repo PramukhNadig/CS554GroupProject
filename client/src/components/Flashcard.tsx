@@ -49,25 +49,27 @@ function App({ subject, title, description, cards, setId, owner }: any) {
             justifyContent: "center",
             alignItems: "center",
             height: "100%",
+            flexDirection: "column",
           }}
         >
-          <Typography variant="h3">{card.word}</Typography>
+          {card.imageUrl !== "" ? (
+            <img src={card.imageUrl} alt="Image" />
+          ) : null}
+        
+          <Typography variant="h1">{card.word}</Typography>
         </div>
       ),
       backHTML: (
         <div
           style={{
             display: "flex",
-            flexDirection: "column",
             justifyContent: "center",
             alignItems: "center",
             height: "100%",
           }}
         >
-          {card.imageUrl !== "" ? (
-            <img src={card.imageUrl} alt="Image" />
-          ) : null}
-          <Typography variant="h4">{card.meaning}</Typography>
+          
+          <Typography variant="h2">{card.meaning}</Typography>
         </div>
       ),
     }));
@@ -85,7 +87,7 @@ function App({ subject, title, description, cards, setId, owner }: any) {
     >
       {/* Remove fixed width and center FlashcardArray component */}
       <div style={{ textAlign: "center" }}>
-        <FlashcardArray cards={cardList} />
+          <FlashcardArray cards={cardList} />
       </div>
     </div>
   );
