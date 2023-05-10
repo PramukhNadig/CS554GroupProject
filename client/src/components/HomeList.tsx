@@ -1,74 +1,48 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import Box from "@mui/material/Box";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
-import Set from "./Set";
+import { useEffect, useState } from "react";
 import ShowSets from "./ShowSets";
 
-function App(name: any) {
-  const [set, setSets] = useState([]);
+function HomeList({ name }: { name: string }) {
+  const [sets, setSets] = useState<any[]>([]);
+  const [displayedSets, setDisplayedSets] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [refresh, setRefresh] = useState(false);
-
 
   useEffect(() => {
     const fetchSets = async () => {
       setLoading(true);
       setError(false);
       try {
-        let url = "http://localhost:4000/v1/sets/savedverbose/" + name.name;
-        console.log(url);
-        const res = await axios.get(url);
-        console.log(res.data);
-        if (res.data?.length > 5) {
-          setSets(res.data.slice(0, 5));
-        } else {
-          setSets(res.data);
-        }
+        let url = "http://localhost:4000/v1/sets/savedverbose/" + name;
+        const saved = await axios.get(url);
+        const owned = await axios.get("http://localhost:4000/v1/sets/my/"+ name);
+        setSets(owned.data.concat(saved.data));
+        setDisplayedSets(owned.data.concat(saved.data));
       } catch (err) {
         setError(true);
       }
       setLoading(false);
     };
     fetchSets();
-    console.log(name);
   }, [name]);
 
-  const triggerRefresh = () => {
-    setRefresh(!refresh);
+  const handleSetDeleted = (setId: string) => {
+    setDisplayedSets(displayedSets.filter((set) => set?._id !== setId));
+    setSets(sets.filter((set) => set?._id !== setId));
   };
 
-  const card = (set: any) => (
-    <Card sx={{ minWidth: 275 }}>
-      <CardContent>
-        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-          <h3>{set.subject}</h3>
-        </Typography>
-        <Typography variant="h5" component="div">
-          <h3>{set.title}</h3>
-        </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-          <h3>{set.description}</h3>
-        </Typography>
-      </CardContent>
-    </Card>
-  );
   return (
     <div className="App">
       <br />
       <h1>Your Sets</h1>
       {loading && <p>Loading...</p>}
       {error && <p>Error!</p>}
-      {set.length === 0 && <p>Create a set and it'll show up here!</p>}
-      {set.length > 0 && <ShowSets sets={set} onSetDeleted={triggerRefresh} />}
+      {sets.length === 0 && <p>Create or save a set and it'll show up here!</p>}
+      {displayedSets.length > 0 && (
+        <ShowSets sets={displayedSets} onSetDeleted={handleSetDeleted} />
+      )}
     </div>
   );
 }
 
-export default App;
+export default HomeList;

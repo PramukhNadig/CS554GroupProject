@@ -3,11 +3,17 @@ import { Container, Grid, TextField, IconButton, Paper, Typography, InputAdornme
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import axios from 'axios';
+import { Navigate } from 'react-router-dom';
+import cookies from '../helpers/cookies';
 
 
 function Assistant() {
     const [input, setInput] = useState('');
     const [response, setResponse] = useState('');
+
+    if (cookies.doesExist("username") === false) {
+        return (<Navigate to="/login" />);
+    }
 
     const sendRequest = async (request: string) => {
         try {
@@ -17,8 +23,6 @@ function Assistant() {
               "input": request,
             
 });
-
-
 
             setResponse(completion.data);
 

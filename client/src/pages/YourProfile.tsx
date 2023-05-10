@@ -1,15 +1,13 @@
-import React, {useState, useEffect} from "react";
+import {useState, useEffect} from "react";
 import { Box, Typography } from "@mui/material";
 import { useQuery } from "react-query";
 import axios from "axios";
 import cookies from "../helpers/cookies";
 import { Navigate } from "react-router-dom";
-import { Card, Button, Container, Row, Col } from "react-bootstrap";
-import xss from "xss";
+import { Container} from "react-bootstrap";
 import ShowSets from "../components/ShowSets";
 
 function App() {
-  const [refresh, setRefresh] = useState(false);
   const [displayedSets, setDisplayedSets] = useState<string[]>([]);
   const [fourohfour, setFourohfour] = useState(false);
   const user = cookies.getCookie("username");
@@ -31,10 +29,6 @@ function App() {
     }
   }, [owned]);
 
-  const triggerRefresh = () => {
-    setRefresh(!refresh);
-  };
-
   if (cookies.doesExist("username") === false) {
     return (<Navigate to="/login" />);
   }
@@ -42,8 +36,7 @@ function App() {
   if (fourohfour) {
     return (
       <Box sx={{ textAlign: "center", mt: 4 }}>
-        <Typography variant='h1'>Profile</Typography>
-        <Typography variant='h2' sx={{ mt: 2 }}>
+        <Typography variant='h1' sx={{ mt: 2 }}>
           User not found
         </Typography>
       </Box>
@@ -53,15 +46,14 @@ function App() {
   return (
     <Container>
       <Box sx={{ textAlign: "center", mt: 4 }}>
-        <Typography variant='h1'>Profile</Typography>
-        <Typography variant='h2' sx={{ mt: 2 }}>
-          Username: {user}
+        <Typography variant='h1' sx={{ mt: 2 }}>
+          {user}
         </Typography>
-        <Typography variant='h3' sx={{ mt: 2 }}>
-          User Made Sets:
+        <Typography variant='h2' sx={{ mt: 2 }}>
+          User-Made Sets:
         </Typography>
         <Box sx={{ mt: 4 }}>
-          {owned && owned?.length === 0 && <p>"No sets found"</p>}
+          {owned && owned?.length === 0 && <p>user has no sets</p>}
           {owned && owned?.length > 0 && <ShowSets
             sets={displayedSets}
             onSetDeleted={(setId) => setDisplayedSets(displayedSets.filter((set: any) => set._id !== setId))}

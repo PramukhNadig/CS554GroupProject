@@ -3,6 +3,8 @@ import { Card, Button, Col, Row } from "react-bootstrap";
 import xss from "xss";
 import cookies from "../helpers/cookies";
 import axios from 'axios';
+import { Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 interface ShowSetsProps {
   sets: any[];
@@ -90,6 +92,7 @@ const ShowSets: React.FC<ShowSetsProps> = ({ sets, onSetDeleted }) => {
 
 
     return (
+        <Container style={{ paddingTop: 20}}>
         <Row xs={1} sm={2} md={3} className="g-4 justify-content-md-center">
           {sets.map((set: any) => (
             <Col key={set.setId}>
@@ -104,11 +107,15 @@ const ShowSets: React.FC<ShowSetsProps> = ({ sets, onSetDeleted }) => {
                   <Card.Body>
                     <Card.Title as="h4">{set.title}</Card.Title>
                     <hr />
-                    <Card.Text>{set.description}</Card.Text>
+                    <Card.Text>Description: {set.description}</Card.Text>
+                    <Card.Text>Subject: {set.subject}</Card.Text>
+                    <Card.Text>Owner: <Link to={'/profile/' + set.owner}>{set.owner}</Link></Card.Text>
                     <hr />
-                    <Button variant="primary" href={xss("/set/" + set._id)}>
+                    <Link to={xss("/set/" + set._id)}>
+                    <Button variant="primary">
                       View
                     </Button>
+                    </Link>
                     {ownedSets.includes(set._id) ? (
                         <Button
                             variant="danger"
@@ -140,6 +147,7 @@ const ShowSets: React.FC<ShowSetsProps> = ({ sets, onSetDeleted }) => {
             </Col>
           ))}
         </Row>
+        </Container>
       );
 };
 

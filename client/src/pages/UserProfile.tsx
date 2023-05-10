@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Box, Typography, Container } from "@mui/material";
 import { useQuery } from "react-query";
 import axios from "axios";
-import xss from "xss";
 import { useParams } from "react-router-dom";
-import Link from "@mui/material/Link";
 import ShowSets from "../components/ShowSets";
 
 function App() {
@@ -34,8 +32,7 @@ function App() {
   if (fourohfour) {
     return (
       <Box sx={{ textAlign: "center", mt: 4 }}>
-        <Typography variant="h1">Profile</Typography>
-        <Typography variant="h2" sx={{ mt: 2 }}>
+        <Typography variant="h1" sx={{ mt: 2 }}>
           User not found
         </Typography>
       </Box>
@@ -45,15 +42,14 @@ function App() {
   return (
     <Container>
       <Box sx={{ textAlign: "center", mt: 4 }}>
-        <Typography variant="h1">Profile</Typography>
-        <Typography variant="h2" sx={{ mt: 2 }}>
-          Username: {user}
+        <Typography variant="h1" sx={{ mt: 2 }}>
+          {user}
         </Typography>
-        <Typography variant="h3" sx={{ mt: 2 }}>
-          User Made Sets:
+        <Typography variant="h2" sx={{ mt: 2 }}>
+          User-Made Sets:
         </Typography>
         <Box sx={{ mt: 4 }}>
-          {owned && owned?.length === 0 && <p>"No sets found"</p>}
+          {owned && owned?.length === 0 && <p>user has no sets</p>}
           {owned && owned?.length > 0 && (
             <ShowSets sets={displayedSets} onSetDeleted={(setId) => setDisplayedSets(displayedSets.filter((set: any) => set._id !== setId))} />
           )}

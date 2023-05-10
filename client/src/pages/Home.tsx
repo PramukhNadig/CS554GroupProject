@@ -13,6 +13,7 @@ function Home() {
     return (
         <Container sx={{py: '20px'}}>
           <h1>Welcome</h1>
+          <br />
           <h2>LibreLearn was created under one vision: make learning tools free.</h2>
           <br />
           <br />
