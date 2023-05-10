@@ -51,7 +51,7 @@ function Assistant() {
           <form onSubmit={handleSubmit}>
             <Grid container spacing={2} alignItems="center" justifyContent="center">
             <Grid item xs={4}>
-              <label id='icon'>
+              <label id='search'>
                 <TextField
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
@@ -80,12 +80,14 @@ function Assistant() {
             <Grid item>
               <label
               id="submission">
-                </label>
+
             <IconButton type="submit" id='submission'>
               <label id='search'>
-                </label>
+
                 <SearchIcon id='search' />
+              </label>
               </IconButton>
+              </label>
               </Grid>
             </Grid>
           </form>
