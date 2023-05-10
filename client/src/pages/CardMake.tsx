@@ -105,6 +105,12 @@ function App() {
                 formData.append('file', e.target.files[0]);
                 formData.append('name', 'file')
                 formData.append('type', 'file')
+                if (e.target.files[0].size > 4000000) { 
+                  alert("File is too big! Max 4MB")
+                  e.target.value = ""
+                  return
+                }
+
                 let imageId = await axios.post("http://localhost:4000/v1/images", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
                 if (imageId.data) { 
                   imageId = imageId.data

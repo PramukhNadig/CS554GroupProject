@@ -1,6 +1,7 @@
 import sets from "./sets";
 import users from "./users";
 import images from "./images";
+import assistant from "./assistant";
 import express from "express";
 const router = express.Router();
 
@@ -8,5 +9,6 @@ const router = express.Router();
 router.use("/sets", sets);
 router.use("/users", users);
 router.use("/images", images);
+router.use("/assistant", assistant);
 
 export default router;

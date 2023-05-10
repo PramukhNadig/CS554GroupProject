@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
-import { Configuration, OpenAIApi } from 'openai';
 import { Container, Grid, TextField, IconButton, Paper, Typography, InputAdornment } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
+import axios from 'axios';
 
-const configuration = new Configuration({
-  apiKey: process.env.REACT_APP_OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
-  
 
 function Assistant() {
     const [input, setInput] = useState('');
@@ -18,16 +13,14 @@ function Assistant() {
         try {
             setResponse("Loading...");
 
-            const completion = await openai.createChatCompletion({
-                model: "gpt-3.5-turbo",
-                messages: [
-                    { role: "system", content: "You are a virtual assistant that is helping students learn. You work for LibreLearn, a website dedicated to helping students learn for free. The website offers two services: flashcards for memorization and you, the virtual assistant tutor." }, 
-                    { role: "user", content: request }
-                ],
-            }) as any;
+          const completion = await axios.post("http://localhost:4000/v1/assistant", {
+              "input": request,
+            
+});
 
 
-            setResponse(completion.data.choices[0].message.content ?? "Unknown Issue");
+
+            setResponse(completion.data);
 
         } catch (e) {
             setResponse("Error Occurred.");

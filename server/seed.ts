@@ -26,8 +26,7 @@ const seed = async () => {
         { word: "Who's this pokemon?", meaning: "Mewtwo", imageUrl: "http://localhost:4000/v1/images/42351ea4-51d4-41ca-a0fb-4fa4afae3c07.jpg" },
         { word: "Who's this pokemon?", meaning: "Jigglypuff", imageUrl: "http://localhost:4000/v1/images/ac553931-c1b3-40c8-8855-280d7d9f7221.jpg" }]);
     
-    console.log("set1", set1);
-
+    return;
 }
     
     

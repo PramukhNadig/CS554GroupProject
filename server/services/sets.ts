@@ -91,7 +91,6 @@ const getSavedSetsByName = async (name: string) => {
   }
   const setCollection = await sets();
   const setList = await setCollection.find({ _id: { $in: saved.saved_sets } }).toArray();
-  console.log(setList)
   return setList;
 };
 

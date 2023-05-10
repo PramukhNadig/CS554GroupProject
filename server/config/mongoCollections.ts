@@ -18,5 +18,5 @@ const getCollectionFn = (collection: any) => {
 /* Now, you can list your collections here: */
 export default { 
   users: getCollectionFn("users") as any,
-  sets: getCollectionFn("sets") as any
+  sets: getCollectionFn("sets") as any,
 };
