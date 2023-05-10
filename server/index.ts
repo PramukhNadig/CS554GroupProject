@@ -41,7 +41,6 @@ app.use(cookieParser(process.env.cookieSecret || "secret"));
 
 app.use("/v1", router);
 
-}));
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
