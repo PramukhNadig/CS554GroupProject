@@ -62,6 +62,7 @@ router.get("/:id", async (req, res) => {
   const ress = await client.hGet("sets", id);
 
   let sets = ress ? JSON.parse(ress) : null;
+
   if (!sets) {
     try {
       sets = await setServices.getSetsById(id);
@@ -101,8 +102,6 @@ router.post("/unsave", async (req, res) => {
     return;
   }
   client.hDel("sets", req.body.username);
-  console.log("userId", req.body.username);
-  console.log("saveSet", req.body.setId);
 
   await users.saveSet(req.body.username, req.body.setId);
 
@@ -124,7 +123,7 @@ router.get("/sets/:name", async (req, res) => {
 
 router.get("/saved/:name", async (req, res) => {
   const name = req.params.name;
-  const ress = await client.hGet("sets", name);
+  const ress = await client.hGet("saved", name);
 
   let sets = ress ? JSON.parse(ress) : null;
   if (!sets) {

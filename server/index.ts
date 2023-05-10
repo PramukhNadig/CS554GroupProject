@@ -20,7 +20,7 @@ app.disable('x-powered-by');
 app.use(
   session({
     name: "AuthCookie",
-    secret: "some secret string!",
+    secret: process.env.SECRET || "secret",
     resave: false,
     saveUninitialized: true,
   })
