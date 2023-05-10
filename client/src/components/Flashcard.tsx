@@ -67,7 +67,7 @@ function App({ subject, title, description, cards, setId, owner }: any) {
           {card.imageUrl !== "" ? (
             <img src={card.imageUrl} alt="Image" />
           ) : null}
-          <Typography variant="h4">{card.meaning}</Typography>
+          <Typography variant="h3">{card.meaning}</Typography>
         </div>
       ),
     }));

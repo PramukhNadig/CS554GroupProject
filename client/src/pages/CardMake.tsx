@@ -1,7 +1,6 @@
 /** @format */
 
 import { useState } from "react";
-import CardInput from "../components/CardInput";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
 import cookies from "../helpers/cookies";
