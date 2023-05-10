@@ -20,27 +20,36 @@ function App() {
     }
 
     useEffect(() => {
+        let cancelToken = axios.CancelToken.source();
         const fetchSets = async () => {
             setLoading(true);
             setError(false);
             try {
                 setSearchResults([]);
                 let url = 'http://localhost:4000/v1/sets/';
-                const res = await axios.get(url);
+                const res = await axios.get(url, { cancelToken: cancelToken.token });
+                let filteredResults = [];
                 for (let i = 0; i < res.data.length; i++) {
                     if (res.data[i].subject.toLowerCase().includes(searchTerm.toLowerCase()) || res.data[i].title.toLowerCase().includes(searchTerm.toLowerCase()) || res.data[i].description.toLowerCase().includes(searchTerm.toLowerCase())) {
-                        setSearchResults(searchResults => [...searchResults, res.data[i]].slice(0, 10));
+                        filteredResults.push(res.data[i]);
                     }
                 }
-
+                setSearchResults(filteredResults.slice(0, 10));
             } catch (err) {
-                setError(true);
+                if (axios.isCancel(err)) {
+                    console.log('Request canceled');
+                } else {
+                    setError(true);
+                }
             }
             setLoading(false);
         }
         fetchSets();
-    }
-        , [searchTerm]);
+        return () => {
+            cancelToken.cancel('Search term changed');
+        };
+    }, [searchTerm]);
+    
     
     const navigate = useNavigate();
     const card = (set: any) => (
