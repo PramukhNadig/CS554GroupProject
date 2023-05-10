@@ -100,6 +100,7 @@ router.post("/unsave", async (req, res) => {
     res.status(400).send("username or setId is empty");
     return;
   }
+  client.hDel("sets", req.body.username);
   console.log("userId", req.body.username);
   console.log("saveSet", req.body.setId);
 

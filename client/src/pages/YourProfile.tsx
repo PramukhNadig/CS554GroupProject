@@ -4,7 +4,6 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import cookies from "../helpers/cookies";
 import { Navigate } from "react-router-dom";
-import Link from "@mui/material/Link";
 import { Card, Button, Container, Row, Col } from "react-bootstrap";
 import xss from "xss";
 
@@ -19,15 +18,6 @@ function App() {
         return [];
       };
       return res.data;
-    });
-  });
-  const { data: saved } = useQuery(["SavedSets"], () => {
-    return axios.get("http://localhost:4000/v1/sets/savedverbose/" + user).then((res) => {
-      if (res.status === 404) {
-        fourohfour = true;
-        return [];
-      };
-      return res.data.saved_sets;
     });
   });
 

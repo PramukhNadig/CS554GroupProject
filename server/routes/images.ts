@@ -8,7 +8,7 @@ import { promises as fs } from 'fs';
 import { ObjectId } from 'mongodb';
 import { connectRedis } from '../config/redis';
 const sanitize = require('sanitize-filename');
-
+const rateLimiter = require('express-rate-limit');
 const router = express.Router();
 
 const storage = multer.diskStorage({
@@ -19,7 +19,10 @@ const storage = multer.diskStorage({
         cb(null, uuidv4() + path.extname(file.originalname))
     }
 })
-
+const limit = rateLimiter({
+    windowMs: 1 * 60 * 1000, // 1 minute
+    max: 1 // limit each IP to 1 requests per windowMs
+});
 const upload = multer({ storage: storage })
 
 router.post('/', upload.single('file'), async (req: any, res: any) => {
@@ -64,5 +67,5 @@ router.get('/:name', async (req: any, res: any) => {
     res.sendFile(path.join(__dirname, `../../images/${sanitized}`));
 });
 
-
+router.use(limit);
 export default router;

@@ -21,16 +21,6 @@ function App() {
       return res.data;
     });
   });
-  const { data: saved } = useQuery(["SavedSets"], () => {
-    return axios.get("http://localhost:4000/v1/sets/savedverbose/" + user).then((res) => {
-      if (res.status === 404) {
-        fourohfour = true;
-        return [];
-      }
-      console.log(res.data.saved_sets)
-      return res.data.saved_sets;
-    });
-  });
 
   if (fourohfour) {
     return (
