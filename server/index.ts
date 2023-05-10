@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import router from "./routes/index.js";
 import session from "express-session";
 import rateLimit from "express-rate-limit";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 const csurf =require( "tiny-csrf")
 import { connectRedis } from "./config/redis.js";
@@ -25,10 +26,18 @@ app.use(
   })
 );
 
+app.use(cookieParser(process.env.cookieSecret || "secret"));
+
+
 
 
 app.use("/v1", router);
-app.use("/v1/images/:name", rateLimit());
+app.use("/", rateLimit({
+  windowMs: 1 * 60 * 1000, //1 minute
+  max: 500,
+  message: "Too many requests",
+
+}));
 app.use(csurf("this1need4s7tobe32charsinle2ngth"))
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");

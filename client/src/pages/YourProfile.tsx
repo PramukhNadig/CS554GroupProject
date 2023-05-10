@@ -4,12 +4,13 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import cookies from "../helpers/cookies";
 import { Navigate } from "react-router-dom";
-import xss from "xss";
+import Link from "@mui/material/Link";
 import { Card, Button, Container, Row, Col } from "react-bootstrap";
 
 function App() {
   let fourohfour = false;
   const user = cookies.getCookie("username");
+  
   const { data: owned } = useQuery(["MySets"], () => {
     return axios.get("http://localhost:4000/v1/sets/my/" + user).then((res) => {
       if (res.status === 404) { 
@@ -68,7 +69,7 @@ function App() {
                         {'Description: ' + set.description}
                       </Card.Text>
                       <hr />
-                      <Button variant="primary" href={xss("/set/" + set._id)}>View Set</Button>
+                      <Button variant="primary" href={"/set/" + set._id}>View Set</Button>
                     </Card.Body>
                   </Card>
                 </div>

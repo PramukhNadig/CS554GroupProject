@@ -7,6 +7,7 @@ import { Console } from 'console';
 import { promises as fs } from 'fs';
 import { ObjectId } from 'mongodb';
 import { connectRedis } from '../config/redis';
+const sanitize = require('sanitize-filename');
 
 const router = express.Router();
 
@@ -58,7 +59,9 @@ router.post('/', upload.single('file'), async (req: any, res: any) => {
 
 router.get('/:name', async (req: any, res: any) => {
     req.params.name = req.params.name.replace(/\\/g, '/');
-    res.sendFile(path.join(__dirname, `../../images/${req.params.name}`));
+    let sanitized = sanitize(req.params.name);
+    console.log(sanitized);
+    res.sendFile(path.join(__dirname, `../../images/${sanitized}`));
 });
 
 
