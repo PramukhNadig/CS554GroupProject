@@ -53,46 +53,33 @@ function Assistant() {
         <br />
         
           <form onSubmit={handleSubmit}>
-            <Grid container spacing={2} alignItems="center" justifyContent="center">
-            <Grid item xs={4}>
-              <label id='search'>
+          
+          <Grid container spacing={2} alignItems="center" justifyContent="center">
+            <Grid item xs={6}>
                 <TextField
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  variant="outlined"
-                  fullWidth
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                variant="outlined"
+                fullWidth
                 autoComplete="off"
-                  InputProps={{
+                InputProps={{
                     endAdornment: (
-                      <InputAdornment position="end">
+                    <InputAdornment position="end">
                         <label id='icon'>
-
-
-                          <IconButton onClick={handleClear} id='icon'>
-                        <label id='clear'>
-
-                              <ClearIcon id='clear' />
-                          </label>
+                        <IconButton onClick={handleClear} id='icon'>
+                            <ClearIcon id='clear' />
                         </IconButton>
                         </label>
-                      </InputAdornment>
+                    </InputAdornment>
                     ),
-                  }}
+                }}
                 />
-                </label>  
-              </Grid>
+            </Grid>
             <Grid item>
-              <label
-              id="submission">
-
-            <IconButton type="submit" id='submission'>
-              <label id='search'>
-
-                <SearchIcon id='search' />
-              </label>
-              </IconButton>
-              </label>
-              </Grid>
+                <IconButton type="submit">
+                <SearchIcon />
+                </IconButton>
+            </Grid>
             </Grid>
           </form>
           <br />
