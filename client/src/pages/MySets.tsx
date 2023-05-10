@@ -43,6 +43,7 @@ function App() {
                 subject={v?.subject}
                 title={v?.title}
                 description={v?.description}
+                owner={v?.owner}
                 cards={v?.cards}></Set>
             </Grid>
           );
