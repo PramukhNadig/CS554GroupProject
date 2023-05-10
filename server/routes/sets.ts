@@ -38,7 +38,19 @@ router.get('/my', async (req, res) => {
 });
 
 router.get("/my/:name", async (req, res) => {
+  try {
+    users.validateName(req.params.name);
+  } catch (e) {
+    console.log(e);
+    return res.status(404).send("username is not valid");
+  }
 
+  try {
+    users.validateNameInDb(req.params.name);
+  } catch (e) {
+    console.log(e);
+    return res.status(404).send("user does not exist!");
+  }
   console.log("req.params.name", req.params.name)
   if (!req.params.name) return res.status(404).send("username is empty");
 
@@ -109,6 +121,19 @@ router.post("/unsave", async (req, res) => {
 });
 
 router.get("/sets/:name", async (req, res) => {
+  try {
+    users.validateName(req.params.name);
+  } catch (e) {
+    console.log(e);
+    return res.status(404).send("username is not valid");
+  }
+
+  try {
+    users.validateNameInDb(req.params.name);
+  } catch (e) {
+    console.log(e);
+    return res.status(404).send("user does not exist!");
+  }
   const name = req.params.name;
   const ress = await client.hGet("sets", name);
 
@@ -122,6 +147,20 @@ router.get("/sets/:name", async (req, res) => {
 });
 
 router.get("/saved/:name", async (req, res) => {
+
+  try {
+    users.validateName(req.params.name);
+  } catch (e) {
+    console.log(e);
+    return res.status(404).send("username is not valid");
+  }
+
+  try {
+    users.validateNameInDb(req.params.name);
+  } catch (e) {
+    console.log(e);
+    return res.status(404).send("user does not exist!");
+  }
   const name = req.params.name;
   const ress = await client.hGet("saved", name);
 

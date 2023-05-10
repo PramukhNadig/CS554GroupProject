@@ -36,38 +36,56 @@ function Assistant() {
         setInput('');
     };      
 
-    return (
-        <Container sx={{ paddingTop: '2rem' }}>
-          <Typography variant="h5" align="center">
+  return (
+    
+    <Container sx={{ paddingTop: '2rem' }}>
+      <Typography variant="h1" align="center">
+        </Typography>
+        <Typography variant="h2" align="center">         
             I am your virtual assistant, ask me anything!
           </Typography>
           <br />
           <br />
-          <br />
+        <br />
+        
           <form onSubmit={handleSubmit}>
             <Grid container spacing={2} alignItems="center" justifyContent="center">
-              <Grid item xs={4}>
+            <Grid item xs={4}>
+              <label id='icon'>
                 <TextField
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   variant="outlined"
                   fullWidth
-                  autoComplete="off"
+                autoComplete="off"
                   InputProps={{
                     endAdornment: (
                       <InputAdornment position="end">
-                        <IconButton onClick={handleClear}>
-                        <ClearIcon />
+                        <label id='icon'>
+
+
+                          <IconButton onClick={handleClear} id='icon'>
+                        <label id='clear'>
+
+                              <ClearIcon id='clear' />
+                          </label>
                         </IconButton>
+                        </label>
                       </InputAdornment>
                     ),
                   }}
                 />
+                </label>  
               </Grid>
-              <Grid item>
-                <IconButton type="submit">
-                <SearchIcon />
-                </IconButton>
+            <Grid item>
+              <label
+              id="submission">
+                </label>
+            <IconButton type="submit" id='submission'>
+              <label id='search'>
+                </label>
+                <SearchIcon id='search' />
+              </IconButton>
               </Grid>
             </Grid>
           </form>
@@ -76,7 +94,7 @@ function Assistant() {
           <Paper elevation={16} sx={{ padding: '20px' }}>
             {response}
           </Paper>
-        </Container>
+      </Container>
       );
 }
 

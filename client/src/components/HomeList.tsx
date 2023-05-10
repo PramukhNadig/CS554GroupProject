@@ -55,7 +55,7 @@ function App(name: any) {
   return (
     <div className="App">
       <br />
-      <h2>Your Sets</h2>
+      <h1>Your Sets</h1>
       {loading && <p>Loading...</p>}
       {error && <p>Error!</p>}
       {set.length === 0 && <p>Create a set and it'll show up here!</p>}
@@ -78,11 +78,6 @@ function App(name: any) {
                 owner={set.owner}
                 setId={set._id}
               ></Set>
-              {/* <Grid item xs={12}>
-                        <Box sx={{ minWidth: 275 }}>
-                            <Card variant="outlined">{card(Set)}</Card>
-                        </Box>
-                    </Grid> */}
             </div>
           )
         )}

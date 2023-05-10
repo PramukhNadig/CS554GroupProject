@@ -150,4 +150,31 @@ const getSavedSets = async (username: string) => {
   return { saved_sets: findUserName.saved_sets };
 };
 
-export default { createUser, checkUser, saveSet, getSavedSets };
+const validateName = (name: string) => {
+  if (!name) {
+    throw new Error("Name is empty");
+  }
+  if (typeof name !== "string" || name.length < 4) {
+    throw new Error(
+      "Name should be a valid string and should be at least 4 characters long."
+    );
+  }
+  if (!isAlpha(name)) {
+    throw new Error("Name should only contain alphabets");
+  }
+};
+
+const validateNameInDb = async(name:string) => {
+    const userCollections = await users();
+    name = name.toLowerCase();
+  let user = userCollections.findOne({
+    username: name,
+  })
+  if (!user) {
+    throw new Error("Either the username or setID is invalid");
+
+  }
+
+};
+
+export default { createUser, checkUser, saveSet, getSavedSets, validateName, validateNameInDb };
