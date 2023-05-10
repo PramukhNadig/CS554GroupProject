@@ -38,7 +38,7 @@ function App({ subject, title, description, cards, setId, owner }: any) {
           >
             <Card style={{ width: "18rem" }}>
               <Card.Body>
-                <Card.Title>{title}</Card.Title>
+              <Card.Title as="h1">{title}</Card.Title>
                 <hr />
                 <Card.Text>
                   Subject: {subject} <br />
