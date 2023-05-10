@@ -42,7 +42,7 @@ function App({ subject, title, description, cards, setId, owner }: any) {
     cardList = cards.map((card: Card, index: number) => ({
     id: index + 1,
     frontHTML: <div style={{display: "flex", justifyContent: "center", alignItems: "center", height:"100%"}}><Typography variant="h3">{card.word}</Typography></div>,
-    backHTML: <div style={{display: "flex", flexDirection:"column", justifyContent: "center", alignItems: "center", height:"100%"}}>{card.imageUrl !== "" ? (<img src={card.imageUrl} alt="Image" />) : null}<Typography variant="h4">{card.meaning}</Typography></div>
+    backHTML: <div style={{display: "flex", flexDirection:"column", justifyContent: "center", alignItems: "center", height:"100%"}}>{card.imageUrl !== "" ? (<img src={"http://localhost:4000/v1/images/" + card.imageUrl} alt="Image" />) : null}<Typography variant="h4">{card.meaning}</Typography></div>
   }));
 }
 

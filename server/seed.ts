@@ -10,8 +10,6 @@ const seed = async () => {
     const setCollection = await sets();
     const userCollection = await users();
 
-    await setCollection.drop();
-    await userCollection.drop();
 
     const phill = await userServices.createUser("phill", "CS554Prof", "phill@stevens.edu");
 
