@@ -54,9 +54,8 @@ function App(name: any) {
   );
   return (
     <div className="App">
-      <h1>Home</h1>
-
-      <h2>Sets</h2>
+      <br />
+      <h2>Your Sets</h2>
       {loading && <p>Loading...</p>}
       {error && <p>Error!</p>}
       {set.length === 0 && <p>Create a set and it'll show up here!</p>}
