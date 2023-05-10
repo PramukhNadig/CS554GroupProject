@@ -1,42 +1,41 @@
-/** @format */
-
-import React from "react";
-import { Box, Typography } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { Box, Typography, Container } from "@mui/material";
 import { useQuery } from "react-query";
 import axios from "axios";
 import xss from "xss";
 import { useParams } from "react-router-dom";
 import Link from "@mui/material/Link";
+import ShowSets from "../components/ShowSets";
 
 function App() {
+  const [displayedSets, setDisplayedSets] = useState([]);
   const user = useParams().user;
   let fourohfour = false;
   const { data: owned } = useQuery(["MySets"], () => {
-    return axios.get("http://localhost:4000/v1/sets/my/" + user).then((res) => {
-      if (res.status === 404) { 
-        fourohfour = true;
-        return [];
-      }
-      console.log(res.data)
-      return res.data;
-    });
+    return axios
+      .get("http://localhost:4000/v1/sets/my/" + user)
+      .then((res) => {
+        if (res.status === 404) {
+          fourohfour = true;
+          return [];
+        }
+        console.log(res.data);
+        return res.data;
+      });
   });
-  const { data: saved } = useQuery(["SavedSets"], () => {
-    return axios.get("http://localhost:4000/v1/sets/savedverbose/" + user).then((res) => {
-      if (res.status === 404) {
-        fourohfour = true;
-        return [];
-      }
-      console.log(res.data.saved_sets)
-      return res.data.saved_sets;
-    });
-  });
+
+  useEffect(() => {
+    if (owned) {
+      setDisplayedSets(owned);
+    }
+  }, [owned]);
+
 
   if (fourohfour) {
     return (
       <Box sx={{ textAlign: "center", mt: 4 }}>
-        <Typography variant='h1'>Profile</Typography>
-        <Typography variant='h2' sx={{ mt: 2 }}>
+        <Typography variant="h1">Profile</Typography>
+        <Typography variant="h2" sx={{ mt: 2 }}>
           User not found
         </Typography>
       </Box>
@@ -44,23 +43,23 @@ function App() {
   }
 
   return (
-    <Box sx={{ textAlign: "center", mt: 4 }}>
-      <Typography variant='h1'>Profile</Typography>
-      <Typography variant='h2' sx={{ mt: 2 }}>
-        Username: {user}
-      </Typography>
-      <Typography variant='h3' sx={{ mt: 2 }}>
-        User Made Sets:
-      </Typography>
-      <Typography variant='h4' sx={{ mt: 2 }}>
-        {owned && owned?.length === 0 && "No sets found"}
-        {owned && owned?.length > 0 && owned?.map((set: any) => (
-          <li key={set._id}>
-            <Link href={xss("/set/" + set._id)}>{set.title}</Link>
-            </li>
-        ))}
-      </Typography>
-    </Box>
+    <Container>
+      <Box sx={{ textAlign: "center", mt: 4 }}>
+        <Typography variant="h1">Profile</Typography>
+        <Typography variant="h2" sx={{ mt: 2 }}>
+          Username: {user}
+        </Typography>
+        <Typography variant="h3" sx={{ mt: 2 }}>
+          User Made Sets:
+        </Typography>
+        <Box sx={{ mt: 4 }}>
+          {owned && owned?.length === 0 && <p>"No sets found"</p>}
+          {owned && owned?.length > 0 && (
+            <ShowSets sets={displayedSets} onSetDeleted={(setId) => setDisplayedSets(displayedSets.filter((set: any) => set._id !== setId))} />
+          )}
+        </Box>
+      </Box>
+    </Container>
   );
 }
 

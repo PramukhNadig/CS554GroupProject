@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Box, Typography } from "@mui/material";
 import { useQuery } from "react-query";
 import axios from "axios";
@@ -7,29 +7,34 @@ import { Navigate } from "react-router-dom";
 import Link from "@mui/material/Link";
 import { Card, Button, Container, Row, Col } from "react-bootstrap";
 import xss from "xss";
+import ShowSets from "../components/ShowSets";
 
 function App() {
-  let fourohfour = false;
+  const [refresh, setRefresh] = useState(false);
+  const [displayedSets, setDisplayedSets] = useState<string[]>([]);
+  const [fourohfour, setFourohfour] = useState(false);
   const user = cookies.getCookie("username");
 
   const { data: owned } = useQuery(["MySets"], () => {
     return axios.get("http://localhost:4000/v1/sets/my/" + user).then((res) => {
       if (res.status === 404) { 
-        fourohfour = true;
+        setFourohfour(true);
         return [];
       };
       return res.data;
     });
   });
-  const { data: saved } = useQuery(["SavedSets"], () => {
-    return axios.get("http://localhost:4000/v1/sets/savedverbose/" + user).then((res) => {
-      if (res.status === 404) {
-        fourohfour = true;
-        return [];
-      };
-      return res.data.saved_sets;
-    });
-  });
+
+  useEffect(() => {
+
+    if (owned) {
+      setDisplayedSets(owned);
+    }
+  }, [owned]);
+
+  const triggerRefresh = () => {
+    setRefresh(!refresh);
+  };
 
   if (cookies.doesExist("username") === false) {
     return (<Navigate to="/login" />);
@@ -57,30 +62,16 @@ function App() {
           User Made Sets:
         </Typography>
         <Box sx={{ mt: 4 }}>
-          <Row xs={1} sm={2} md={3} className="g-4 justify-content-md-center">
-            {owned && owned?.length === 0 && <p>"No sets found"</p>}
-            {owned && owned?.length > 0 && owned?.map((set: any) => (
-              <Col key={set.setId}>
-                <div style={{ display: "flex", justifyContent: "center", marginBottom: "25px" }}>
-                  <Card style={{ width: "18rem" }}>
-                    <Card.Body>
-                      <Card.Title as="h4">{'Title: ' + set.title}</Card.Title>
-                      <hr />
-                      <Card.Text>
-                        {'Description: ' + set.description}
-                      </Card.Text>
-                      <hr />
-                      <Button variant="primary" href={xss("/set/" + set._id)}>View Set</Button>
-                    </Card.Body>
-                  </Card>
-                </div>
-              </Col>
-            ))}
-          </Row>
+          {owned && owned?.length === 0 && <p>"No sets found"</p>}
+          {owned && owned?.length > 0 && <ShowSets
+            sets={displayedSets}
+            onSetDeleted={(setId) => setDisplayedSets(displayedSets.filter((set: any) => set._id !== setId))}
+          />}
         </Box>
       </Box>
     </Container>
   );
 }
+
 
 export default App;

@@ -89,24 +89,41 @@ router.post("/save", async (req, res) => {
     res.status(400).send("username or setId is empty");
     return;
   }
-
-  await users.saveSet(req.body.username, req.body.setId);
-
-  res.send("success");
+  try {
+    await users.saveSet(req.body.username, req.body.setId);
+    res.status(200).send("success");
+  } catch (e) {
+    res.status(500).send("internal server error")
+  }
 });
 
-router.post("/unsave", async (req, res) => {
+router.post("/save", async (req, res) => {
   if (!req.body.username || !req.body.setId) {
     res.status(400).send("username or setId is empty");
     return;
   }
-  console.log("userId", req.body.username);
-  console.log("saveSet", req.body.setId);
-
-  await users.saveSet(req.body.username, req.body.setId);
-
-  res.send("success");
+  try {
+    await users.saveSet(req.body.username, req.body.setId);
+    res.status(200).send("success");
+  } catch (e) {
+    res.status(500).send("internal server error")
+  }
 });
+
+router.post("/delete", async (req, res) => {
+  if (!req.body.username || !req.body.setId) {
+    res.status(400).send("username or setId is empty");
+    return;
+  }
+  try {
+    await setServices.deleteSet(req.body.username, req.body.setId);
+    res.status(200).send("success");
+  } catch (e) {
+    res.status(500).send("internal server error")
+  }
+});
+
+
 
 router.get("/sets/:name", async (req, res) => {
   const name = req.params.name;

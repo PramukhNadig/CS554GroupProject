@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from "react-router-dom";
+import ShowSets from './ShowSets';
 
 
 function App() { 
@@ -9,6 +10,7 @@ function App() {
     const [searchResults, setSearchResults] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
+    const [refresh, setRefresh] = useState(false);
 
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchTerm(event.target.value);
@@ -48,7 +50,8 @@ function App() {
         return () => {
             cancelToken.cancel('Search term changed');
         };
-    }, [searchTerm]);
+    }, [searchTerm, refresh]);
+    
     
     
     const navigate = useNavigate();
@@ -63,6 +66,12 @@ function App() {
             </button>
         </div>
     );
+
+    const onSetDeleted = (setId: string) => {
+        setSearchResults(searchResults.filter((set) => set._id !== setId));
+        setRefresh(!refresh);
+    }
+      
 
     if (searchResults.length === 0) {
         return (
@@ -81,7 +90,7 @@ function App() {
             <input type="text" placeholder="Search" value={searchTerm} onSubmit={handleSubmit} onChange={onChange} />
             {loading && <p>Loading...</p>}
             {error && <p>Error!</p>}
-            {searchResults.length > 0 && searchResults.map(card)}
+            {searchResults.length > 0 && <ShowSets sets={searchResults} onSetDeleted={onSetDeleted} />}
         </div>
     );
 }

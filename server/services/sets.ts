@@ -7,10 +7,11 @@ const users = mongoCollections.users;
 /*
 Properties of sets collection
 1. _id: ObjectId
-2. title: string
-3. description: string
-4. subject: string
-5. cards: array of objects
+2. owner: string
+3. title: string
+4. description: string
+5. subject: string
+6. cards: array of objects
 */
 
 // I will add validation later
@@ -71,8 +72,13 @@ const createSet = async (
   return await getPostById(newId);
 };
 
-const deleteSet = async (id: ObjectId) => {
+const deleteSet = async (owner: string, id: string) => {
+  id = new (mongodbObjectId as any)(id)
   const setCollection = await sets();
+  const set = await setCollection.findOne({ _id: id });
+  if (set.owner != owner) {
+    throw "Only the owner of the set can delete it";
+  }
   const deletionInfo = await setCollection.deleteOne({ _id: id });
 
   if (deletionInfo.deletedCount === 0)

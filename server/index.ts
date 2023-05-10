@@ -44,7 +44,7 @@ app.use("/v1/images/", rateLimit({
   message: "Too many requests",
 
 }));
-app.use(csurf("this1need4s7tobe32charsinle2ngth"))
+
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
 });

@@ -8,11 +8,14 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Set from "./Set";
+import ShowSets from "./ShowSets";
 
 function App(name: any) {
   const [set, setSets] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
+  const [refresh, setRefresh] = useState(false);
+
 
   useEffect(() => {
     const fetchSets = async () => {
@@ -37,6 +40,10 @@ function App(name: any) {
     console.log(name);
   }, [name]);
 
+  const triggerRefresh = () => {
+    setRefresh(!refresh);
+  };
+
   const card = (set: any) => (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
@@ -59,33 +66,7 @@ function App(name: any) {
       {loading && <p>Loading...</p>}
       {error && <p>Error!</p>}
       {set.length === 0 && <p>Create a set and it'll show up here!</p>}
-      {set.length > 0 &&
-        set.map(
-          (set: {
-            _id: string | number | undefined;
-            subject: React.ReactNode;
-            title: React.ReactNode;
-            description: React.ReactNode;
-            owner: React.ReactNode;
-            cards: any;
-          }) => (
-            <div key={set._id}>
-              <Set
-                subject={set.subject}
-                title={set.title}
-                description={set.description}
-                cards={set.cards}
-                owner={set.owner}
-                setId={set._id}
-              ></Set>
-              {/* <Grid item xs={12}>
-                        <Box sx={{ minWidth: 275 }}>
-                            <Card variant="outlined">{card(Set)}</Card>
-                        </Box>
-                    </Grid> */}
-            </div>
-          )
-        )}
+      {set.length > 0 && <ShowSets sets={set} onSetDeleted={triggerRefresh} />}
     </div>
   );
 }
