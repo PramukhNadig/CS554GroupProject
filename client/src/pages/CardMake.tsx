@@ -112,7 +112,7 @@ function App() {
                 handleValueChange(index, { ...cards[index], imageUrl: imageId })
               }}
 
-        accept='image/*'
+        accept='image/jpg'
         
         style={{
           backgroundColor: "#f5f5f5",

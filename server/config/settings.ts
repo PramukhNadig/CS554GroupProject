@@ -1,7 +1,7 @@
 export default {
   mongoConfig: {
     serverUrl:
-      "mongodb+srv://tony0824:Wlsdn1995@cluster0.7akaqsf.mongodb.net/test",
+      "mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&ssl=false",
     database: "cs554_db",
   },
 };
