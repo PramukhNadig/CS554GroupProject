@@ -1,7 +1,5 @@
 import axios from "axios"
-import { useNavigate } from "react-router-dom"
 import cookies from "../helpers/cookies";
-import { useQuery } from "react-query";
 import { Navigate } from "react-router-dom";
 
 const Logout = () => {

@@ -4,7 +4,6 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import cookies from "../helpers/cookies";
 import { Navigate } from "react-router-dom";
-import Link from "@mui/material/Link";
 import { Card, Button, Container, Row, Col } from "react-bootstrap";
 import xss from "xss";
 import ShowSets from "../components/ShowSets";

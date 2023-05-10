@@ -38,7 +38,19 @@ router.get('/my', async (req, res) => {
 });
 
 router.get("/my/:name", async (req, res) => {
+  try {
+    users.validateName(req.params.name);
+  } catch (e) {
+    console.log(e);
+    return res.status(404).send("username is not valid");
+  }
 
+  try {
+    users.validateNameInDb(req.params.name);
+  } catch (e) {
+    console.log(e);
+    return res.status(404).send("user does not exist!");
+  }
   console.log("req.params.name", req.params.name)
   if (!req.params.name) return res.status(404).send("username is empty");
 
@@ -62,6 +74,7 @@ router.get("/:id", async (req, res) => {
   const ress = await client.hGet("sets", id);
 
   let sets = ress ? JSON.parse(ress) : null;
+
   if (!sets) {
     try {
       sets = await setServices.getSetsById(id);
@@ -102,6 +115,9 @@ router.post("/save", async (req, res) => {
     res.status(400).send("username or setId is empty");
     return;
   }
+  client.hDel("sets", req.body.username);
+
+  await users.saveSet(req.body.username, req.body.setId);
   try {
     await users.saveSet(req.body.username, req.body.setId);
     res.status(200).send("success");
@@ -126,6 +142,19 @@ router.post("/delete", async (req, res) => {
 
 
 router.get("/sets/:name", async (req, res) => {
+  try {
+    users.validateName(req.params.name);
+  } catch (e) {
+    console.log(e);
+    return res.status(404).send("username is not valid");
+  }
+
+  try {
+    users.validateNameInDb(req.params.name);
+  } catch (e) {
+    console.log(e);
+    return res.status(404).send("user does not exist!");
+  }
   const name = req.params.name;
   const ress = await client.hGet("sets", name);
 
@@ -139,8 +168,22 @@ router.get("/sets/:name", async (req, res) => {
 });
 
 router.get("/saved/:name", async (req, res) => {
+
+  try {
+    users.validateName(req.params.name);
+  } catch (e) {
+    console.log(e);
+    return res.status(404).send("username is not valid");
+  }
+
+  try {
+    users.validateNameInDb(req.params.name);
+  } catch (e) {
+    console.log(e);
+    return res.status(404).send("user does not exist!");
+  }
   const name = req.params.name;
-  const ress = await client.hGet("sets", name);
+  const ress = await client.hGet("saved", name);
 
   let sets = ress ? JSON.parse(ress) : null;
   if (!sets) {

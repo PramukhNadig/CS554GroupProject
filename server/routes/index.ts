@@ -10,5 +10,8 @@ router.use("/sets", sets);
 router.use("/users", users);
 router.use("/images", images);
 router.use("/assistant", assistant);
+router.use("*", (req, res) => {
+    res.status(404).send("Not Found");
+});
 
 export default router;

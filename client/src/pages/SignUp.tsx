@@ -8,8 +8,6 @@ import {
   Box,
   Typography,
   TextField,
-  FormControlLabel,
-  Checkbox,
   Button,
   Grid,
   Link,

@@ -8,9 +8,7 @@ import cookies from "../helpers/cookies";
 import {
   Box,
   Button,
-  Checkbox,
   Container,
-  FormControlLabel,
   Grid,
   Link,
   TextField,
