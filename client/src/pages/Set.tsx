@@ -1,4 +1,4 @@
-import Set from "../components/Set";
+import FlashCard from "../components/FlashCard";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
@@ -14,14 +14,14 @@ function Home() {
   });
   return (
     <div className="app">
-      <Set
+      <FlashCard
         setId={data?._id}
         subject={data?.subject}
         title={data?.title}
         description={data?.description}
         owner={data?.owner}
         cards={data?.cards}
-      ></Set>
+      ></FlashCard>
     </div>
   );
 }
