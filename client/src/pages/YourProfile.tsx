@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import axios from "axios";
 import cookies from "../helpers/cookies";
 import { Navigate } from "react-router-dom";
-import Link from "@mui/material/Link";
+import xss from "xss";
 import { Card, Button, Container, Row, Col } from "react-bootstrap";
 
 function App() {
@@ -68,7 +68,7 @@ function App() {
                         {'Description: ' + set.description}
                       </Card.Text>
                       <hr />
-                      <Button variant="primary" href={"/set/" + set._id}>View Set</Button>
+                      <Button variant="primary" href={xss("/set/" + set._id)}>View Set</Button>
                     </Card.Body>
                   </Card>
                 </div>

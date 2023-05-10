@@ -1,10 +1,11 @@
 import getResponse from "../services/assistant";
 import express from "express";
 const router = express.Router();
-
+import xss from "xss";
 router.post('/', async (req, res) => {
-    console.log("req.body.input", req.body.input);
-    const response = await getResponse(req.body.input);
+
+    let input = xss(req.body.input);
+    const response = await getResponse(input);
 
     res.send(response);
 

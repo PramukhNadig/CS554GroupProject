@@ -4,7 +4,7 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import { useQuery } from "react-query";
 import axios from "axios";
-import cookies from "../helpers/cookies";
+import xss from "xss";
 import { useParams } from "react-router-dom";
 import Link from "@mui/material/Link";
 
@@ -56,7 +56,7 @@ function App() {
         {owned && owned?.length === 0 && "No sets found"}
         {owned && owned?.length > 0 && owned?.map((set: any) => (
           <li key={set._id}>
-            <Link href={"/set/" + set._id}>{set.title}</Link>
+            <Link href={xss("/set/" + set._id)}>{set.title}</Link>
             </li>
         ))}
       </Typography>
