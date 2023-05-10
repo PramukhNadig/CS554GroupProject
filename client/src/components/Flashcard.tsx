@@ -8,10 +8,10 @@ import { FlashcardArray } from "react-quizlet-flashcard";
 import { Typography } from "@mui/material";
 
 type Card = {
-  word: string,
-  meaning: string,
-  imageUrl: string
-}
+  word: string;
+  meaning: string;
+  imageUrl: string;
+};
 
 function App({ subject, title, description, cards, setId, owner }: any) {
   const [index, setIndex] = useState(0);
@@ -36,25 +36,57 @@ function App({ subject, title, description, cards, setId, owner }: any) {
   const nav = (own: any) => {
     return "/userprofile/" + own;
   };
-  
-  let cardList = []
+
+  let cardList = [];
   if (cards) {
     cardList = cards.map((card: Card, index: number) => ({
-    id: index + 1,
-    frontHTML: <div style={{display: "flex", justifyContent: "center", alignItems: "center", height:"100%"}}><Typography variant="h3">{card.word}</Typography></div>,
-    backHTML: <div style={{display: "flex", flexDirection:"column", justifyContent: "center", alignItems: "center", height:"100%"}}>{card.imageUrl !== "" ? (<img src={card.imageUrl} alt="Image" />) : null}<Typography variant="h4">{card.meaning}</Typography></div>
-  }));
-}
+      id: index + 1,
+      frontHTML: (
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+          }}
+        >
+          <Typography variant="h3">{card.word}</Typography>
+        </div>
+      ),
+      backHTML: (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100%",
+          }}
+        >
+          {card.imageUrl !== "" ? (
+            <img src={card.imageUrl} alt="Image" />
+          ) : null}
+          <Typography variant="h4">{card.meaning}</Typography>
+        </div>
+      ),
+    }));
+  }
 
   return (
-    <Container
-      className="d-flex justify-content-center align-items-center"
-      style={{ minHeight: "100vh" }}
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+        width: "100%",
+      }}
     >
-      <div style={{ width: "48rem" }}>
+      {/* Remove fixed width and center FlashcardArray component */}
+      <div style={{ textAlign: "center" }}>
         <FlashcardArray cards={cardList} />
       </div>
-    </Container>
+    </div>
   );
 }
 
