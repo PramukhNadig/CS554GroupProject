@@ -2,17 +2,19 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import router from "./routes/index.js";
 import session from "express-session";
-
+import rateLimit from "express-rate-limit";
 import cors from "cors";
+const csurf =require( "tiny-csrf")
 import { connectRedis } from "./config/redis.js";
 
 dotenv.config();
 
 const app: Express = express();
-const port = 4000;
+const port = process.env.PORT || 4000;
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(cors());
+app.disable('x-powered-by');
 
 app.use(
   session({
@@ -26,6 +28,8 @@ app.use(
 
 
 app.use("/v1", router);
+app.use("/v1/images/:name", rateLimit());
+app.use(csurf("this1need4s7tobe32charsinle2ngth"))
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
 });

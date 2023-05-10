@@ -57,6 +57,7 @@ router.post('/', upload.single('file'), async (req: any, res: any) => {
 });
 
 router.get('/:name', async (req: any, res: any) => {
+    req.params.name = req.params.name.replace(/\\/g, '/');
     res.sendFile(path.join(__dirname, `../../images/${req.params.name}`));
 });
 
