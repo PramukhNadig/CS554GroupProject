@@ -5,7 +5,7 @@ import CardInput from "../components/CardInput";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
 import cookies from "../helpers/cookies";
-import { TextField, Button, Box } from "@mui/material";
+import { TextField, Button, Box, Tooltip } from "@mui/material";
 
 type Card = {
   word: string;
@@ -60,7 +60,7 @@ function App() {
         />
         <TextField
           sx={{ margin: 1 }}
-          label='Subject or Course'
+          label='Subject'
           value={subject}
           onChange={(e) => setSubject(e.target.value)}
         />
@@ -68,12 +68,13 @@ function App() {
       {cards.map((currElem, index) => {
         return (
           <Box key={index} sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <TextField label='Term' variant='outlined' sx={{ flex: 1 }} onChange={
+            <TextField label='Front' variant='outlined' sx={{ flex: 1 }} onChange={
             (e) => { handleValueChange(index, { ...cards[index], word: e.target.value }) }
       } />
-            <TextField label='Definition' variant='outlined' sx={{ flex: 1 }} onChange={
+            <TextField label='Back' variant='outlined' sx={{ flex: 1 }} onChange={
               (e) => { handleValueChange(index, { ...cards[index], meaning: e.target.value }) }
       } />
+      <Tooltip title="Optional" enterDelay={100}>
             <input
               type='file'
               name='file'
@@ -125,15 +126,28 @@ function App() {
           border: "1px solid #ccc",
           borderRadius: "5px",
           padding: "10px",
+          width: "20%",
         }}
       />
+      </Tooltip>
           </Box>
         );
       })}
       <Box sx={{ alignSelf: "center" }}>
+      <Button
+          disabled={cards.length === 1}
+          variant="outlined"
+          color="error"
+          onClick={() => {
+            const newCards = cards.slice(0, -1); // Remove the last element
+            setCards(newCards);
+          }}
+        >
+          - Remove Card
+      </Button>
         <Button
           sx={{ margin: 1 }}
-          variant='contained'
+          variant='outlined'
           onClick={
             () => {
               setCards([...cards, initCard]);
@@ -148,13 +162,13 @@ function App() {
           onClick={async () => {
             if (!cookies.doesExist("username")) return unloggedIn;
             if (!title || !description || !subject || !cards)
-              return alert("Please fill out all fields");
+              return alert("Please fill out all fields (images are optional)");
             if (
               cards.some(
                 (card) => !card.word || !card.meaning
               )
             )
-              return alert("Please fill out all fields");
+              return alert("Please fill out all fields (images are optional)");
             
             
             await axios.post("http://localhost:4000/v1/sets", {
