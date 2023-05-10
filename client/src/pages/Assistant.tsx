@@ -4,9 +4,8 @@ import { Container, Grid, TextField, IconButton, Paper, Typography, InputAdornme
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 
-
 const configuration = new Configuration({
-  apiKey: "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",
+  apiKey: process.env.REACT_APP_OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
   
