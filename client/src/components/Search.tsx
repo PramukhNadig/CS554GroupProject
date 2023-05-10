@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ShowSets from './ShowSets';
+import cookies from "../helpers/cookies";
+import { Navigate } from "react-router-dom";
 
 
 function App() { 
@@ -52,20 +54,10 @@ function App() {
         };
     }, [searchTerm, refresh]);
     
-    
-    
-    const navigate = useNavigate();
-    const card = (set: any) => (
-        <div>
-            <button onClick={() => {
-                navigate("/set/" + set._id);
-            }}>
-                <h3>{set.subject}</h3>
-                <h3>{set.title}</h3>
-                <h3>{set.description}</h3>
-            </button>
-        </div>
-    );
+
+    if (cookies.doesExist("username") === false) {
+        return (<Navigate to="/login" />);
+    }
 
     const onSetDeleted = (setId: string) => {
         setSearchResults(searchResults.filter((set) => set._id !== setId));
