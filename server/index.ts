@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 const csurf =require( "tiny-csrf")
 import { connectRedis } from "./config/redis.js";
+import path from "path";
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(cors());
 app.disable('x-powered-by');
+app.use('/', express.static(path.join(__dirname, '/client/build')));
 
 app.use(
   session({
