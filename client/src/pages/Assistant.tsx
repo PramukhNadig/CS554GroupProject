@@ -66,8 +66,10 @@ function Assistant() {
                     endAdornment: (
                     <InputAdornment position="end">
                         <label id='icon'>
-                        <IconButton onClick={handleClear} id='icon'>
-                            <ClearIcon id='clear' />
+                                <IconButton onClick={handleClear} id='icon'>
+                                    <label id='clear'>
+                                        <ClearIcon id='clear' />
+                                        </label>
                         </IconButton>
                         </label>
                     </InputAdornment>
@@ -76,8 +78,10 @@ function Assistant() {
                 />
             </Grid>
             <Grid item>
-                <IconButton type="submit">
-                <SearchIcon />
+                      <IconButton type="submit">
+                          <label id='search'>
+                              <SearchIcon id='search'/>
+                            </label>
                 </IconButton>
             </Grid>
             </Grid>

@@ -91,7 +91,7 @@ const ShowSets: React.FC<ShowSetsProps> = ({ sets, onSetDeleted }) => {
       };
 
 
-    return (
+  return (
         <Container style={{ paddingTop: 20}}>
         <Row xs={1} sm={2} md={3} className="g-4 justify-content-md-center">
           {sets.map((set: any) => (
@@ -147,7 +147,7 @@ const ShowSets: React.FC<ShowSetsProps> = ({ sets, onSetDeleted }) => {
             </Col>
           ))}
         </Row>
-        </Container>
+      </Container>
       );
 };
 
