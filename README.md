@@ -1,7 +1,7 @@
 # LibreLearn
 A website designed to help students learn more effectively for free.
 
-**To run the server:**
+<u><b>To run the server:</b></u>
 * IMPORTANT PRE-REQUISITES 
 * Make sure you have the .env file
 * Make sure you are running the redis server using the command: redis-server
@@ -16,9 +16,9 @@ Starting from the top-most directory, /CS554GroupProject
 
 The server will now run on localhost:4000
 <br>
+<br>
 
-
-**To run the client:**  
+<u><b>To run the client:</b></u>
 <br>
 Starting from the top-most directory, /CS554GroupProject
 1. cd client
