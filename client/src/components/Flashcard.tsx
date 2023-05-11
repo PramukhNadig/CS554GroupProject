@@ -1,5 +1,4 @@
 import { FlashcardArray } from "react-quizlet-flashcard";
-import { Typography } from "@mui/material";
 
 type Card = {
   word: string;
@@ -8,41 +7,42 @@ type Card = {
 };
 
 function App({ cards }: any) {
-
   let cardList = [];
   if (cards) {
     cardList = cards.map((card: Card, index: number) => ({
-
       id: index + 1,
       frontHTML: (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100%",
-            flexDirection: "column",
-          }}
-        >
+        <div>
           {card.imageUrl !== "" ? (
             <img src={card.imageUrl} alt="unknown error" />
           ) : null}
-        
-          <Typography variant="h1">{card.word}</Typography>
+          {card.word}
         </div>
       ),
+      frontContentStyle: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+        flexDirection: "column",
+        wordWrap: "break-word",
+        maxWidth: "100%",
+        fontSize: "2.5vw",
+      },
       backHTML: (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100%",
-          }}
-        >
-          <Typography variant="h3">{card.meaning}</Typography>
+        <div>
+          {card.meaning}
         </div>
       ),
+      backContentStyle: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+        wordWrap: "break-word",
+        maxWidth: "100%",
+        fontSize: "2.5vw",
+      },
     }));
   }
 
@@ -56,9 +56,8 @@ function App({ cards }: any) {
         width: "100%",
       }}
     >
-      
       <div style={{ textAlign: "center" }}>
-          <FlashcardArray cards={cardList} />
+        <FlashcardArray cards={cardList} />
       </div>
     </div>
   );

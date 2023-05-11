@@ -78,7 +78,7 @@ function App() {
     }
     return (
         <div className="App">
-            <h1>Search</h1>
+            <h1 className="h1-padded">Search</h1>
             <input type="text" placeholder="Search" value={searchTerm} onSubmit={handleSubmit} onChange={onChange} />
             {loading && <p>Loading...</p>}
             {error && <p>Error!</p>}
