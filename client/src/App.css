@@ -41,3 +41,12 @@
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+.smaller-text {
+  font-size: 24px; 
+}
+
+.assistant-text {
+  font-size: 5px;
+}
+
