@@ -31,7 +31,7 @@ const ShowSets: React.FC<ShowSetsProps> = ({ sets, onSetDeleted }) => {
             });
 
         axios
-            .get("https://librelearn-backend-a.herokuapp.com/v1/sets/saved/" + username)
+            .get("https://librelearn-backend-aa.herokuapp.com/v1/sets/saved/" + username)
             .then((response) => {
             setSavedSets(response.data.saved_sets);
             })
