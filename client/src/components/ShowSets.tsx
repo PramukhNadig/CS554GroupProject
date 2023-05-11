@@ -38,7 +38,7 @@ const ShowSets: React.FC<ShowSetsProps> = ({ sets, onSetDeleted }) => {
             .catch((error) => {
             console.log(error);
             });
-    }, []);
+    }, [savedSets]);
 
 
     const handleSave = (setId: string) => {
@@ -59,7 +59,7 @@ const ShowSets: React.FC<ShowSetsProps> = ({ sets, onSetDeleted }) => {
     
       const handleUnsave = (setId: string) => {
         axios
-          .post("http://localhost:4000/v1/sets/unsave", {
+          .post("http://localhost:4000/v1/sets/save", {
             username: username,
             setId: setId,
           })
