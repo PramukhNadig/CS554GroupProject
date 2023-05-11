@@ -30,7 +30,7 @@ function App() {
             setError(false);
             try {
                 setSearchResults([]);
-                let url = 'http://localhost:4000/v1/sets/';
+                let url = 'https://librelearn-backend-a.herokuapp.com/v1/sets/';
                 const res = await axios.get(url, { cancelToken: cancelToken.token });
                 let filteredResults = [];
                 for (let i = 0; i < res.data.length; i++) {

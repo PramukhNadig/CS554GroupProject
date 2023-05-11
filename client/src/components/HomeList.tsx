@@ -13,9 +13,9 @@ function HomeList({ name }: { name: string }) {
       setLoading(true);
       setError(false);
       try {
-        let url = "http://localhost:4000/v1/sets/savedverbose/" + name;
+        let url = "https://librelearn-backend-a.herokuapp.com/v1/sets/savedverbose/" + name;
         const saved = await axios.get(url);
-        const owned = await axios.get("http://localhost:4000/v1/sets/my/"+ name);
+        const owned = await axios.get("https://librelearn-backend-a.herokuapp.com/v1/sets/my/"+ name);
         setSets(owned.data.concat(saved.data));
         setDisplayedSets(owned.data.concat(saved.data));
       } catch (err) {
