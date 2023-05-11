@@ -105,7 +105,7 @@ const ShowSets: React.FC<ShowSetsProps> = ({ sets, onSetDeleted }) => {
               >
                 <Card style={{ width: "18rem" }}>
                   <Card.Body>
-                    <Card.Title as="h4">{set.title}</Card.Title>
+                    <Card.Title as="h1" className="smaller-text">{set.title}</Card.Title>
                     <hr />
                     <Card.Text>Description: {set.description}</Card.Text>
                     <Card.Text>Subject: {set.subject}</Card.Text>
