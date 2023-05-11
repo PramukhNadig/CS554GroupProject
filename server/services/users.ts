@@ -159,9 +159,10 @@ const validateName = (name: string) => {
       "Name should be a valid string and should be at least 4 characters long."
     );
   }
-  if (!isAlpha(name)) {
-    throw new Error("Name should only contain alphabets");
-  }
+const username_regex = /^[a-zA-Z0-9]+$/;
+  if(!username_regex.test(name)){
+    throw new Error("Name should only contain letters and numbers")
+  } 
 };
 
 const validateNameInDb = async(name:string) => {
