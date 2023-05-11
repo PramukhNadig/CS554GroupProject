@@ -75,7 +75,7 @@ const ShowSets: React.FC<ShowSetsProps> = ({ sets, onSetDeleted }) => {
     
       const handleDelete = (setId: string) => {
         axios
-          .post("https://librelearn-backend-a.herokuapp.com/v1/sets/delete", {
+          .post("https://librelearn-backend-aa.herokuapp.com/v1/sets/delete", {
             username: username,
             setId: setId,
           })

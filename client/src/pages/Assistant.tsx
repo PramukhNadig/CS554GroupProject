@@ -19,7 +19,7 @@ function Assistant() {
         try {
             setResponse("Loading...");
 
-          const completion = await axios.post("https://librelearn-backend-a.herokuapp.com/v1/assistant", {
+          const completion = await axios.post("https://librelearn-backend-aa.herokuapp.com/v1/assistant", {
               "input": request,
             
 });

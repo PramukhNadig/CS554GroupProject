@@ -8,7 +8,7 @@ function Home() {
   console.log("id", id);
 
   const { data } = useQuery(["Set", id], () => {
-    return axios.get("https://librelearn-backend-a.herokuapp.com/v1/sets/" + id).then((res) => {
+    return axios.get("https://librelearn-backend-aa.herokuapp.com/v1/sets/" + id).then((res) => {
       return res.data;
     });
   });

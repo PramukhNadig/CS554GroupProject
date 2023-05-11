@@ -8,7 +8,7 @@ const Logout = () => {
         return (<Navigate to="/" />);
     }
 
-    axios.get("https://librelearn-backend-a.herokuapp.com/v1/users/logout")
+    axios.get("https://librelearn-backend-aa.herokuapp.com/v1/users/logout")
     cookies.deleteCookie("username");
     cookies.deleteCookie("id");
     return (
