@@ -54,7 +54,6 @@ router.post('/', upload.single('file'), async (req: any, res: any) => {
 
         if (err) throw err;
         
-        console.log('resized image to fit within 200x200px');
     });
 
         res.json(image.url)
@@ -63,7 +62,6 @@ router.post('/', upload.single('file'), async (req: any, res: any) => {
 router.get('/:name', async (req: any, res: any) => {
     req.params.name = req.params.name.replace(/\\/g, '/');
     let sanitized = sanitize(req.params.name);
-    console.log(sanitized);
     res.sendFile(path.join(__dirname, `../../images/${sanitized}`));
 });
 

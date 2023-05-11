@@ -41,17 +41,14 @@ router.get("/my/:name", async (req, res) => {
   try {
     users.validateName(req.params.name);
   } catch (e) {
-    console.log(e);
     return res.status(404).send("username is not valid");
   }
 
   try {
     users.validateNameInDb(req.params.name);
   } catch (e) {
-    console.log(e);
     return res.status(404).send("user does not exist!");
   }
-  console.log("req.params.name", req.params.name)
   if (!req.params.name) return res.status(404).send("username is empty");
 
   if (req.params.name === "undefined") return res.status(404).send("username is empty");
@@ -80,7 +77,6 @@ router.get("/:id", async (req, res) => {
       sets = await setServices.getSetsById(id);
       await client.hSet("sets", id, JSON.stringify(sets));
     } catch (e) {
-      console.log(e);
       return res.status(404).send("id is not valid");
     }
   }
@@ -93,7 +89,6 @@ router.post("/", async (req, res) => {
   const { owner, title, description, subject, cards } = req.body;
   let tmp = await setServices.createSet(owner,title, description, subject, cards);
   await client.del("set");
-  console.log("tmp", tmp)
   res.send("success");
 });
 
@@ -145,14 +140,12 @@ router.get("/sets/:name", async (req, res) => {
   try {
     users.validateName(req.params.name);
   } catch (e) {
-    console.log(e);
     return res.status(404).send("username is not valid");
   }
 
   try {
     users.validateNameInDb(req.params.name);
   } catch (e) {
-    console.log(e);
     return res.status(404).send("user does not exist!");
   }
   const name = req.params.name;
@@ -172,14 +165,12 @@ router.get("/saved/:name", async (req, res) => {
   try {
     users.validateName(req.params.name);
   } catch (e) {
-    console.log(e);
     return res.status(404).send("username is not valid");
   }
 
   try {
     users.validateNameInDb(req.params.name);
   } catch (e) {
-    console.log(e);
     return res.status(404).send("user does not exist!");
   }
   const name = req.params.name;
@@ -192,7 +183,6 @@ router.get("/saved/:name", async (req, res) => {
       await client.hSet("sets", name, JSON.stringify(sets));
       return res.json(sets);
     } catch (e) {
-      console.log(e);
       return res.status(404).send("username is empty");
     }
 
@@ -207,7 +197,6 @@ router.get('/savedverbose/:name', async (req, res) => {
   try {
     sets = await setServices.getSavedSetsByName(name);
   } catch (e) {
-    console.log(e);
     return res.status(404).send("username is empty");
   }
 
