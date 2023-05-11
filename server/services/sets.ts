@@ -91,7 +91,6 @@ const getSavedSetsByName = async (name: string) => {
   const saved = await userCollection.findOne({ username: name });
   if (saved === null) throw `Could not find user with name of ${name}`;
 
-  console.log(saved.saved_sets);
   for (let i = 0; i < saved.saved_sets.length; i++) {
     saved.saved_sets[i] = new mongodbObjectId(saved.saved_sets[i]);
   }

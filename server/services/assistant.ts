@@ -23,8 +23,6 @@ async function getResponse(request: string) {
         }) as any;
         return completion.data.choices[0].message.content
     } catch (error) {
-        console.log(error)
-        console.log(configuration)
         return "Something has gone wrong!"
     }
 }

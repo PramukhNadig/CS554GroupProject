@@ -18,7 +18,6 @@ declare module 'express-session' {
 }
 
 router.post("/signup", async (req, res) => {
-  console.log("req", req.body);
   const { username, password, email } = req.body;
   if (!username || !password || !email) {
     return res.status(400).json({"error": "must include username, password, and email"})
