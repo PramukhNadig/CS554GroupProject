@@ -17,7 +17,7 @@ Starting from the top-most directory, /CS554GroupProject
 The server will now run on localhost:4000
 
 
-**To run the client:**
+**To run the client:**  
 Starting from the top-most directory, /CS554GroupProject
 1. cd client
 2. npm install
