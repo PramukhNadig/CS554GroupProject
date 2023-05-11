@@ -38,7 +38,7 @@ const ShowSets: React.FC<ShowSetsProps> = ({ sets, onSetDeleted }) => {
             .catch((error) => {
             console.log(error);
             });
-    }, [savedSets]);
+    }, []);
 
 
     const handleSave = (setId: string) => {
