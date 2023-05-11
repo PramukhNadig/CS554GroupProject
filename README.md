@@ -27,4 +27,11 @@ Starting from the top-most directory, /CS554GroupProject
 
 The client will now run on localhost:3000
 
+<br>
+
+**Demo Account:**
+
+username: demo  
+password: password
+
 
