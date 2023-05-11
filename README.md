@@ -4,7 +4,7 @@ A website designed to help students learn more effectively for free.
 **To run the server:**
 * IMPORTANT PRE-REQUISITES 
 * Make sure you have the .env file in the server folder
-* Make sure you are running the redis server using the command: redis-server
+* Make sure have redis installed you are running the redis server using the command: redis-server
 * To use images, make sure you have ImageMagick installed
 
 Starting from the top-most directory, /CS554GroupProject
