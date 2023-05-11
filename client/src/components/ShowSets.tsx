@@ -22,7 +22,7 @@ const ShowSets: React.FC<ShowSetsProps> = ({ sets, onSetDeleted }) => {
         const username = cookies.getCookie("username");
 
         axios
-            .get("https://librelearn-backend-a.herokuapp.com/v1/sets/my/" + username)
+            .get("https://librelearn-backend-aa.herokuapp.com/v1/sets/my/" + username)
             .then((response) => {
             setOwnedSets(response.data.map((item: { _id: any; }) => item._id));
             })
@@ -43,7 +43,7 @@ const ShowSets: React.FC<ShowSetsProps> = ({ sets, onSetDeleted }) => {
 
     const handleSave = (setId: string) => {
         axios
-          .post("https://librelearn-backend-a.herokuapp.com/v1/sets/save", {
+          .post("https://librelearn-backend-aa.herokuapp.com/v1/sets/save", {
             username: username,
             setId: setId,
           })
@@ -59,7 +59,7 @@ const ShowSets: React.FC<ShowSetsProps> = ({ sets, onSetDeleted }) => {
     
       const handleUnsave = (setId: string) => {
         axios
-          .post("https://librelearn-backend-a.herokuapp.com/v1/sets/save", {
+          .post("https://librelearn-backend-aa.herokuapp.com/v1/sets/save", {
             username: username,
             setId: setId,
           })
