@@ -31,7 +31,7 @@ The client will now run on localhost:3000
 
 **Demo Account:**
 
-username: demo
+username: demo  
 password: password
 
 
