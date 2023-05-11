@@ -35,3 +35,10 @@ username: demo
 password: password
 
 
+<br>
+
+**Hosted on https://netlify-push--enchanting-gelato-1e1590.netlify.app/**
+
+Keep it mind that images will not work on the hosted version as netlify/heroku's filesystem's do not support it.
+Please run the server locally if you would like to use images.
+
