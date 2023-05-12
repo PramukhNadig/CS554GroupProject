@@ -111,7 +111,7 @@ function App() {
                   return
                 }
 
-                let imageId = await axios.post("https://librelearn-backend-a.herokuapp.com/v1/images", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
+                let imageId = await axios.post("https://librelearn-backend-aa.herokuapp.com/v1/images", formData, { headers: { 'Content-Type': 'multipart/form-data' } });
                 if (imageId.data) { 
                   imageId = imageId.data
                 }
