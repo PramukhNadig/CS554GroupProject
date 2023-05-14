@@ -26,7 +26,7 @@
     "react-quizlet-flashcard": "^3.0.0",
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
-    "styled-components": "^5.3.9",
+    "styled-components": "^5.3.10",
     "tiny-csrf": "^1.1.3",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4",
